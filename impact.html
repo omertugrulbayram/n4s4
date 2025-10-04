@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etki Simülasyonu | AstroVia - Asteroid Çarpma Analizi</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="cosmic-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">AstroVia</span>
+                <span class="logo-sparkle">✨</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link" data-translate="nav-home">Ana Sayfa</a>
+                <a href="detect.html" class="nav-link" data-translate="nav-detect">Blink Analiz</a>
+                <a href="impact.html" class="nav-link active" data-translate="nav-impact">Etki Simülasyonu</a>
+                <a href="about.html" class="nav-link" data-translate="nav-about">Hakkında</a>
+                <a href="legal.html" class="nav-link" data-translate="nav-legal">Yasal</a>
+                <div class="language-selector">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content" data-aos="fade-up">
+                <div class="page-badge" data-translate="impact-badge">Herkes için anlaşılır risk görselleştirme — bilimden karara köprü</div>
+                <h1 class="page-title" data-translate="impact-title">Etki Simülasyonu</h1>
+                <p class="page-subtitle" data-translate="impact-subtitle">Asteroid çarpma etkilerini simüle edin ve analiz edin</p>
+                <p class="page-description" data-translate="impact-description">
+                    Asteroid parametrelerini ayarlayın, çarpma noktasını seçin ve detaylı etki analizi yapın. 
+                    Enerji hesaplamaları, krater boyutları, şok dalgası etkileri ve PDF rapor indirme özellikleri.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Asteroid Parameters Panel -->
+    <section class="parameters-panel">
+        <div class="container">
+            <div class="panel-container" data-aos="fade-up">
+                <h2>Asteroid Parametreleri</h2>
+                
+                <div class="parameters-grid">
+                    <div class="parameter-group">
+                        <label class="parameter-label">
+                            <span class="param-icon">📏</span>
+                            <span class="param-name">Çap</span>
+                            <span class="param-value" id="diameterValue">120</span>
+                            <span class="param-unit">metre</span>
+                        </label>
+                        <input type="range" id="diameter" min="10" max="10000" value="120" class="parameter-slider">
+                        <div class="param-description">Asteroid boyutu hasar miktarını doğrudan etkiler</div>
+                    </div>
+
+                    <div class="parameter-group">
+                        <label class="parameter-label">
+                            <span class="param-icon">⚡</span>
+                            <span class="param-name">Hız</span>
+                            <span class="param-value" id="velocityValue">19.5</span>
+                            <span class="param-unit">km/s</span>
+                        </label>
+                        <input type="range" id="velocity" min="5" max="72" value="19.5" step="0.1" class="parameter-slider">
+                        <div class="param-description">Dünya'nın kaçış hızı 11 km/s</div>
+                    </div>
+
+                    <div class="parameter-group">
+                        <label class="parameter-label">
+                            <span class="param-icon">🪨</span>
+                            <span class="param-name">Yoğunluk</span>
+                            <span class="param-value" id="densityValue">3300</span>
+                            <span class="param-unit">kg/m³</span>
+                        </label>
+                        <input type="range" id="density" min="1000" max="8000" value="3300" class="parameter-slider">
+                        <div class="param-description">Taş: ~2500, Demir: ~7800 kg/m³</div>
+                    </div>
+
+                    <div class="parameter-group">
+                        <label class="parameter-label">
+                            <span class="param-icon">◀</span>
+                            <span class="param-name">Giriş Açısı</span>
+                            <span class="param-value" id="angleValue">35</span>
+                            <span class="param-unit">derece</span>
+                        </label>
+                        <input type="range" id="angle" min="10" max="90" value="35" class="parameter-slider">
+                        <div class="param-description">Dikey çarpma (90°) maksimum hasar yaratır</div>
+                    </div>
+                </div>
+
+                <!-- NeoWs ID Search -->
+                <div class="neows-search">
+                    <h3>NeoWs ID ile Arama</h3>
+                    <div class="search-container">
+                        <input type="text" id="neowsId" placeholder="Asteroid ID girin (örn: 2000433)" class="search-input">
+                        <button id="searchNeows" class="search-btn">
+                            <span class="btn-icon">🔍</span>
+                            <span>Ara</span>
+                        </button>
+                    </div>
+                    <p class="search-description">NASA Near-Earth Object Web Service'den gerçek asteroid verilerini çekin</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <div class="map-container" data-aos="fade-up">
+                <h2>Çarpma Konumu Seçimi</h2>
+                <div class="map-wrapper">
+                    <div id="impactMap"></div>
+                    <div class="map-controls">
+                        <div class="location-selector">
+                            <h3>Hazır Konumlar</h3>
+                            <div class="location-buttons">
+                                <button class="location-btn" data-lat="41.0082" data-lon="28.9784" data-city="İstanbul">İstanbul</button>
+                                <button class="location-btn" data-lat="39.9334" data-lon="32.8597" data-city="Ankara">Ankara</button>
+                                <button class="location-btn" data-lat="37.2153" data-lon="28.3636" data-city="Muğla">Muğla</button>
+                                <button class="location-btn" data-lat="40.1826" data-lon="29.0665" data-city="Bursa">Bursa</button>
+                            </div>
+                        </div>
+                        <div class="map-info">
+                            <h3>Seçili Konum</h3>
+                            <div class="location-details" id="locationDetails">
+                                <p><strong>Şehir:</strong> <span id="selectedCity">İstanbul</span></p>
+                                <p><strong>Koordinatlar:</strong> <span id="selectedCoords">41.0082°N, 28.9784°E</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulation Results -->
+    <section class="simulation-results" id="simulationResults" style="display: none;">
+        <div class="container">
+            <div class="results-container" data-aos="fade-up">
+                <h2>Simülasyon Sonuçları</h2>
+                
+                <!-- Energy & Impact Cards -->
+                <div class="results-grid">
+                    <div class="result-card energy">
+                        <div class="card-icon">⚡</div>
+                        <div class="card-content">
+                            <h3>Tahmini Enerji</h3>
+                            <div class="card-value" id="energyValue">-</div>
+                            <div class="card-unit">Megaton TNT</div>
+                            <div class="card-description">Kinetik enerji salınımı</div>
+                        </div>
+                    </div>
+
+                    <div class="result-card crater">
+                        <div class="card-icon">○</div>
+                        <div class="card-content">
+                            <h3>Krater Çapı</h3>
+                            <div class="card-value" id="craterValue">-</div>
+                            <div class="card-unit">kilometre</div>
+                            <div class="card-description">Oluşacak krater boyutu</div>
+                        </div>
+                    </div>
+
+                    <div class="result-card shockwave">
+                        <div class="card-icon">🌊</div>
+                        <div class="card-content">
+                            <h3>Şok Dalgası</h3>
+                            <div class="card-value" id="shockwaveValue">-</div>
+                            <div class="card-unit">kilometre</div>
+                            <div class="card-description">Etki yarıçapı</div>
+                        </div>
+                    </div>
+
+                    <div class="result-card population">
+                        <div class="card-icon">👥</div>
+                        <div class="card-content">
+                            <h3>Etkilenen Nüfus</h3>
+                            <div class="card-value" id="populationValue">-</div>
+                            <div class="card-unit">milyon kişi</div>
+                            <div class="card-description">Tahmini etkilenen nüfus</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Analysis -->
+                <div class="detailed-analysis">
+                    <h3>Detaylı Analiz</h3>
+                    <div class="analysis-grid">
+                        <div class="analysis-item">
+                            <h4>Termal Etkiler</h4>
+                            <p><strong>Yanık yarıçapı:</strong> <span id="thermalRadius">-</span> km</p>
+                            <p><strong>Yangın riski:</strong> <span id="fireRisk">-</span></p>
+                        </div>
+                        <div class="analysis-item">
+                            <h4>Yapısal Hasar</h4>
+                            <p><strong>Bina yıkımı:</strong> <span id="buildingDamage">-</span> km</p>
+                            <p><strong>Cam kırılması:</strong> <span id="glassBreakage">-</span> km</p>
+                        </div>
+                        <div class="analysis-item">
+                            <h4>Çevresel Etkiler</h4>
+                            <p><strong>Toz bulutu:</strong> <span id="dustCloud">-</span> km</p>
+                            <p><strong>Deprem büyüklüğü:</strong> <span id="earthquakeMag">-</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF Report Button -->
+                <div class="report-section">
+                    <button class="pdf-btn" id="generatePdf">
+                        <span class="btn-icon">📄</span>
+                        <span>PDF Rapor İndir</span>
+                    </button>
+                    <p class="report-description">Tek sayfa detaylı analiz raporunu indirin</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Run Simulation Button -->
+    <section class="simulation-controls">
+        <div class="container">
+            <div class="controls-container" data-aos="fade-up">
+                <button class="simulate-btn" id="runSimulation">
+                    <span class="btn-icon">🚀</span>
+                    <span>Simülasyonu Çalıştır</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Global variables
+        let map;
+        let impactMarker;
+        let impactCircles = [];
+        let selectedLocation = { lat: 41.0082, lon: 28.9784, city: 'İstanbul' };
+
+        // Initialize map
+        function initMap() {
+            map = L.map('impactMap').setView([selectedLocation.lat, selectedLocation.lon], 8);
+            
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors, © CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Add impact marker
+            const meteorIcon = L.divIcon({
+                className: 'meteor-marker',
+                html: '<div style="background: radial-gradient(circle, #ff7a00, #ff4500); width: 24px; height: 24px; border-radius: 50%; border: 4px solid #000; box-shadow: 0 0 20px #ff7a00; animation: pulse 2s infinite;"></div>',
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+            });
+
+            impactMarker = L.marker([selectedLocation.lat, selectedLocation.lon], {
+                icon: meteorIcon
+            }).addTo(map);
+
+            // Map click handler
+            map.on('click', function(e) {
+                selectedLocation.lat = e.latlng.lat;
+                selectedLocation.lon = e.latlng.lng;
+                selectedLocation.city = 'Özel Konum';
+                
+                updateLocation();
+                updateMarker();
+            });
+        }
+
+        // Update location display
+        function updateLocation() {
+            document.getElementById('selectedCity').textContent = selectedLocation.city;
+            document.getElementById('selectedCoords').textContent = 
+                `${selectedLocation.lat.toFixed(4)}°N, ${selectedLocation.lon.toFixed(4)}°E`;
+        }
+
+        // Update marker position
+        function updateMarker() {
+            if (impactMarker) {
+                map.removeLayer(impactMarker);
+            }
+            
+            const meteorIcon = L.divIcon({
+                className: 'meteor-marker',
+                html: '<div style="background: radial-gradient(circle, #ff7a00, #ff4500); width: 24px; height: 24px; border-radius: 50%; border: 4px solid #000; box-shadow: 0 0 20px #ff7a00; animation: pulse 2s infinite;"></div>',
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+            });
+
+            impactMarker = L.marker([selectedLocation.lat, selectedLocation.lon], {
+                icon: meteorIcon
+            }).addTo(map);
+        }
+
+        // Location button handlers
+        document.querySelectorAll('.location-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                selectedLocation.lat = parseFloat(this.dataset.lat);
+                selectedLocation.lon = parseFloat(this.dataset.lon);
+                selectedLocation.city = this.dataset.city;
+                
+                updateLocation();
+                updateMarker();
+                map.setView([selectedLocation.lat, selectedLocation.lon], 8);
+            });
+        });
+
+        // Parameter sliders
+        const sliders = ['diameter', 'velocity', 'density', 'angle'];
+        sliders.forEach(sliderId => {
+            const slider = document.getElementById(sliderId);
+            const valueDisplay = document.getElementById(sliderId + 'Value');
+            
+            slider.addEventListener('input', function() {
+                valueDisplay.textContent = this.value;
+            });
+        });
+
+        // NeoWs search
+        document.getElementById('searchNeows').addEventListener('click', function() {
+            const neowsId = document.getElementById('neowsId').value;
+            if (neowsId) {
+                searchNeoWs(neowsId);
+            }
+        });
+
+        function searchNeoWs(id) {
+            // Simulate NeoWs API call
+            console.log('Searching NeoWs for ID:', id);
+            // In real implementation, this would call the NeoWs API
+            alert(`NeoWs arama özelliği demo modunda. ID: ${id}`);
+        }
+
+        // Run simulation
+        document.getElementById('runSimulation').addEventListener('click', function() {
+            runImpactSimulation();
+        });
+
+        function runImpactSimulation() {
+            // Get parameters
+            const diameter = parseFloat(document.getElementById('diameter').value);
+            const velocity = parseFloat(document.getElementById('velocity').value);
+            const density = parseFloat(document.getElementById('density').value);
+            const angle = parseFloat(document.getElementById('angle').value);
+
+            // Calculate impact effects
+            const results = calculateImpactEffects(diameter, velocity, density, angle);
+            
+            // Update UI
+            updateResults(results);
+            
+            // Show results section
+            document.getElementById('simulationResults').style.display = 'block';
+            document.getElementById('simulationResults').scrollIntoView({ behavior: 'smooth' });
+            
+            // Draw impact circles on map
+            drawImpactCircles(results);
+        }
+
+        function calculateImpactEffects(diameter, velocity, density, angle) {
+            // Physical calculations
+            const volume = (4/3) * Math.PI * Math.pow(diameter/2, 3);
+            const mass = density * volume;
+            const velocityMs = velocity * 1000;
+            const kineticEnergy = 0.5 * mass * Math.pow(velocityMs, 2);
+            const energyMT = kineticEnergy / 4.184e15;
+
+            // Impact effects
+            const craterDiameter = Math.pow(kineticEnergy / 1e12, 0.25) * Math.sin(angle * Math.PI / 180);
+            const shockwaveRadius = Math.max(1.0, 1.4 * Math.pow(kineticEnergy, 1/3) / 1000);
+            const thermalRadius = Math.sqrt(energyMT) * 3.2;
+            
+            // Population impact (simplified)
+            const populationDensity = 1000; // people per km²
+            const affectedArea = Math.PI * Math.pow(shockwaveRadius, 2);
+            const affectedPopulation = (affectedArea * populationDensity) / 1000000;
+
+            return {
+                energy: energyMT,
+                craterDiameter: craterDiameter,
+                shockwaveRadius: shockwaveRadius,
+                thermalRadius: thermalRadius,
+                affectedPopulation: affectedPopulation,
+                buildingDamage: shockwaveRadius * 0.3,
+                glassBreakage: shockwaveRadius * 0.8,
+                dustCloud: shockwaveRadius * 1.5,
+                earthquakeMag: Math.log10(energyMT) + 4.5
+            };
+        }
+
+        function updateResults(results) {
+            document.getElementById('energyValue').textContent = results.energy.toExponential(2);
+            document.getElementById('craterValue').textContent = results.craterDiameter.toFixed(1);
+            document.getElementById('shockwaveValue').textContent = results.shockwaveRadius.toFixed(1);
+            document.getElementById('populationValue').textContent = results.affectedPopulation.toFixed(1);
+            
+            document.getElementById('thermalRadius').textContent = results.thermalRadius.toFixed(1);
+            document.getElementById('fireRisk').textContent = results.thermalRadius > 5 ? 'Yüksek' : 'Orta';
+            document.getElementById('buildingDamage').textContent = results.buildingDamage.toFixed(1);
+            document.getElementById('glassBreakage').textContent = results.glassBreakage.toFixed(1);
+            document.getElementById('dustCloud').textContent = results.dustCloud.toFixed(1);
+            document.getElementById('earthquakeMag').textContent = results.earthquakeMag.toFixed(1);
+        }
+
+        function drawImpactCircles(results) {
+            // Clear existing circles
+            impactCircles.forEach(circle => map.removeLayer(circle));
+            impactCircles = [];
+
+            // Draw impact zones
+            const zones = [
+                { radius: results.buildingDamage, color: '#ff4500', opacity: 0.3, label: 'Ağır Hasar' },
+                { radius: results.shockwaveRadius * 0.6, color: '#ff7a00', opacity: 0.25, label: 'Orta Hasar' },
+                { radius: results.shockwaveRadius, color: '#ffa500', opacity: 0.2, label: 'Hafif Hasar' }
+            ];
+
+            zones.forEach(zone => {
+                if (zone.radius > 0) {
+                    const circle = L.circle([selectedLocation.lat, selectedLocation.lon], {
+                        color: zone.color,
+                        fillColor: zone.color,
+                        fillOpacity: zone.opacity,
+                        radius: zone.radius * 1000, // Convert to meters
+                        weight: 3,
+                        opacity: 0.8
+                    }).addTo(map);
+                    
+                    impactCircles.push(circle);
+                }
+            });
+
+            // Fit map to show all circles
+            if (results.shockwaveRadius > 0) {
+                const bounds = L.latLngBounds(
+                    L.latLng(selectedLocation.lat - results.shockwaveRadius/111, selectedLocation.lon - results.shockwaveRadius/111),
+                    L.latLng(selectedLocation.lat + results.shockwaveRadius/111, selectedLocation.lon + results.shockwaveRadius/111)
+                );
+                map.fitBounds(bounds, { padding: [50, 50] });
+            }
+        }
+
+        // PDF generation
+        document.getElementById('generatePdf').addEventListener('click', function() {
+            generatePDFReport();
+        });
+
+        function generatePDFReport() {
+            // Simulate PDF generation
+            console.log('Generating PDF report...');
+            
+            // In real implementation, this would generate a PDF
+            const reportData = {
+                location: selectedLocation,
+                parameters: {
+                    diameter: document.getElementById('diameter').value,
+                    velocity: document.getElementById('velocity').value,
+                    density: document.getElementById('density').value,
+                    angle: document.getElementById('angle').value
+                },
+                results: {
+                    energy: document.getElementById('energyValue').textContent,
+                    crater: document.getElementById('craterValue').textContent,
+                    shockwave: document.getElementById('shockwaveValue').textContent,
+                    population: document.getElementById('populationValue').textContent
+                }
+            };
+            
+            // Create a simple text report for demo
+            const reportText = `
+ASTROVIA ETKİ SİMÜLASYONU RAPORU
+================================
+
+Tarih: ${new Date().toLocaleDateString('tr-TR')}
+Konum: ${selectedLocation.city} (${selectedLocation.lat.toFixed(4)}°N, ${selectedLocation.lon.toFixed(4)}°E)
+
+ASTEROİT PARAMETRELERİ:
+- Çap: ${reportData.parameters.diameter} metre
+- Hız: ${reportData.parameters.velocity} km/s
+- Yoğunluk: ${reportData.parameters.density} kg/m³
+- Giriş Açısı: ${reportData.parameters.angle} derece
+
+SONUÇLAR:
+- Tahmini Enerji: ${reportData.results.energy} Megaton TNT
+- Krater Çapı: ${reportData.results.crater} kilometre
+- Şok Dalgası Yarıçapı: ${reportData.results.shockwave} kilometre
+- Etkilenen Nüfus: ${reportData.results.population} milyon kişi
+
+UYARI: Bu simülasyon eğitim amaçlıdır ve gerçek veriler değildir.
+            `;
+            
+            const blob = new Blob([reportText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'astrovia-impact-report.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+            updateLocation();
+        });
+    </script>
+
+    <style>
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+        
+        .meteor-marker {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</body>
+</html>

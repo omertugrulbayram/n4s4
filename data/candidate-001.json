@@ -1,0 +1,10 @@
+{
+  "id": "candidate-001",
+  "name": "Impactor-2025",
+  "diameter_m": 120,
+  "density_kg_m3": 3300,
+  "speed_kms": 19.5,
+  "entry_angle_deg": 35,
+  "impact_lat": 41.0,
+  "impact_lon": 29.0
+}

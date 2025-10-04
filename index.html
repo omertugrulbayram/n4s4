@@ -1,0 +1,1118 @@
+<!-- ================================================ -->
+<!--    Bu kodu kahve içerek yazdım         -->
+<!--    NASA Space Apps Challenge 2025            -->
+<!--    "Asteroid çarpmasın diye kod yazıyoruz HTRHTRWY"
+<!-- ================================================ -->
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TODO: SEO meta tags ekle (ama etmeyeceğim muhtemelen) -->
+    <title>AstroGuard | Planetary Defense & Impact Assessment System</title>
+    <link href="style.css" rel="stylesheet">
+    <!-- Fontlar - Inter çok güzel görünüyor, JetBrains Mono da kod için ideal -->
+    <!-- bu fontları seçmemin sebebi: güzel görünüyorlar  -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet harita kütüphanesi - ücretsiz ve güzel -->
+    <!-- harita olmadan asteroid simülasyonu olmaz tabii ki -->
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Plotly grafikler için - çok güçlü -->
+    <!-- bu olmadan grafik nasıl çizeceğiz ki? -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <!-- AOS animasyonlar - basit ama etkili -->
+    <!-- animasyon olmadan sıkıcı olurdu -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="cosmic-bg"></div>
+    
+    <!-- ================================================ -->
+    <!--    DENEME BLOKLARI - BUNLARI INDEX'TE GÖSTERMEDİM -->
+    <!--    Burda şu denemeyi yaptım ama sonra vazgeçtim   -->
+    <!-- ================================================ -->
+    
+    <!-- Bu div'i asteroid mood göstermek için yaptım ama sonra vazgeçtim -->
+    <div class="asteroid-mood-indicator" style="display: none;">
+        <!-- burda asteroid'in ruh halini göstermeyi denedim ama çok karmaşık oldu -->
+        <div class="mood-display">
+            <span class="mood-text">Asteroid is feeling happy today!</span>
+            <div class="mood-bar">
+                <div class="mood-fill" style="width: 75%;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bu coolness meter'i yaptım ama çok saçma oldu, index'te göstermedim -->
+    <div class="asteroid-coolness-meter" style="display: none;">
+        <!-- burda asteroid'in ne kadar cool olduğunu göstermeyi denedim ama saçma oldu -->
+        <div class="coolness-display">
+            <span class="coolness-text">This asteroid is super cool!</span>
+            <div class="coolness-stars">
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+                <span class="star">⭐</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bu joke display'i yaptım ama çok komik değildi, index'te göstermedim -->
+    <div class="asteroid-joke-display" style="display: none;">
+        <!-- burda asteroid şakaları göstermeyi denedim ama çok komik değildi -->
+        <div class="joke-container">
+            <h3 class="joke-title">Asteroid Joke of the Day</h3>
+            <p class="joke-text">Why don't asteroids ever get lonely? Because they're always in space!</p>
+            <button class="joke-button">Get Another Joke</button>
+        </div>
+    </div>
+    
+    <!-- Bu calculations display'i yaptım ama çok karmaşık oldu, index'te göstermedim -->
+    <div class="asteroid-useless-calculations" style="display: none;">
+        <!-- burda gereksiz hesaplamaları göstermeyi denedim ama çok karmaşık oldu -->
+        <div class="calculations-display">
+            <h3 class="calculations-title">Useless Calculations</h3>
+            <div class="calculation-item">
+                <span class="calculation-label">Random Number 1:</span>
+                <span class="calculation-value">42.5</span>
+            </div>
+            <div class="calculation-item">
+                <span class="calculation-label">Random Number 2:</span>
+                <span class="calculation-value">73.8</span>
+            </div>
+            <div class="calculation-item">
+                <span class="calculation-label">Random Number 3:</span>
+                <span class="calculation-value">91.2</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bu random number generator'ı yaptım ama gereksizdi, index'te göstermedim -->
+    <div class="asteroid-random-number-generator" style="display: none;">
+        <!-- burda random sayı üretici yapmayı denedim ama gereksizdi -->
+        <div class="generator-display">
+            <h3 class="generator-title">Random Number Generator</h3>
+            <div class="generator-output">
+                <span class="generator-number">0.123456789</span>
+            </div>
+            <button class="generator-button">Generate New Number</button>
+        </div>
+    </div>
+    
+    <!-- Bu important stuff'ı yaptım ama çok sıkıcı oldu, index'te göstermedim -->
+    <div class="asteroid-important-stuff" style="display: none;">
+        <!-- burda önemli bilgiler göstermeyi denedim ama çok sıkıcı oldu -->
+        <div class="important-display">
+            <h3 class="important-title">Very Important Information</h3>
+            <p class="important-text">This is very important stuff that nobody will ever see!</p>
+            <ul class="important-list">
+                <li>Important item 1</li>
+                <li>Important item 2</li>
+                <li>Important item 3</li>
+                <li>Important item 4</li>
+                <li>Important item 5</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Bu debug info'yu yaptım ama çok teknik oldu, index'te göstermedim -->
+    <div class="asteroid-debug-info" style="display: none;">
+        <!-- burda debug bilgilerini göstermeyi denedim ama çok teknik oldu -->
+        <div class="debug-display">
+            <h3 class="debug-title">Debug Information</h3>
+            <div class="debug-item">
+                <span class="debug-label">Element Count:</span>
+                <span class="debug-value">0</span>
+            </div>
+            <div class="debug-item">
+                <span class="debug-label">Debug Mode:</span>
+                <span class="debug-value">true</span>
+            </div>
+            <div class="debug-item">
+                <span class="debug-label">Random Variable:</span>
+                <span class="debug-value">undefined</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bu useless variables'ı yaptım ama çok saçma oldu, index'te göstermedim -->
+    <div class="asteroid-useless-variables" style="display: none;">
+        <!-- burda gereksiz değişkenleri göstermeyi denedim ama çok saçma oldu -->
+        <div class="variables-display">
+            <h3 class="variables-title">Useless Variables</h3>
+            <div class="variable-item">
+                <span class="variable-name">uselessVar1:</span>
+                <span class="variable-value">123.456</span>
+            </div>
+            <div class="variable-item">
+                <span class="variable-name">uselessVar2:</span>
+                <span class="variable-value">789.012</span>
+            </div>
+            <div class="variable-item">
+                <span class="variable-name">uselessVar3:</span>
+                <span class="variable-value">345.678</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bu super useless'i yaptım ama çok gereksiz oldu, index'te göstermedim -->
+    <div class="asteroid-super-useless" style="display: none;">
+        <!-- burda süper gereksiz bilgiler göstermeyi denedim ama çok gereksiz oldu -->
+        <div class="super-useless-display">
+            <h3 class="super-useless-title">Super Useless Information</h3>
+            <p class="super-useless-text">This is super useless information that will never be displayed!</p>
+            <div class="super-useless-grid">
+                <div class="grid-item">Item 1</div>
+                <div class="grid-item">Item 2</div>
+                <div class="grid-item">Item 3</div>
+                <div class="grid-item">Item 4</div>
+                <div class="grid-item">Item 5</div>
+                <div class="grid-item">Item 6</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bu ultra useless'i yaptım ama çok aşırı oldu, index'te göstermedim -->
+    <div class="asteroid-ultra-useless" style="display: none;">
+        <!-- burda ultra gereksiz bilgiler göstermeyi denedim ama çok aşırı oldu -->
+        <div class="ultra-useless-display">
+            <h3 class="ultra-useless-title">Ultra Useless Information</h3>
+            <p class="ultra-useless-text">This is ultra useless information that will never be displayed!</p>
+            <div class="ultra-useless-list">
+                <div class="list-item">Ultra useless item 1</div>
+                <div class="list-item">Ultra useless item 2</div>
+                <div class="list-item">Ultra useless item 3</div>
+                <div class="list-item">Ultra useless item 4</div>
+                <div class="list-item">Ultra useless item 5</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">AstroVia</span>
+                <span class="logo-sparkle">✨</span>
+            </div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link active" data-translate="nav-home">Ana Sayfa</a>
+                    <a href="detect.html" class="nav-link" data-translate="nav-detect">Blink Analiz</a>
+                    <a href="impact.html" class="nav-link" data-translate="nav-impact">Etki Simülasyonu</a>
+                    <a href="about.html" class="nav-link" data-translate="nav-about">Hakkında</a>
+                    <a href="legal.html" class="nav-link" data-translate="nav-legal">Yasal</a>
+                    <div class="language-selector">
+                        <button class="lang-btn active" data-lang="tr">TR</button>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - burası çok önemli, ilk izlenim -->
+    <section class="hero-section">
+        <div class="hero-content" data-aos="fade-up">
+            <!-- bu badge çok cool görünüyor -->
+            <div class="hero-badge">AI destekli asteroit keşfi + çarpma etkisi simülasyonu</div>
+            <h1 class="hero-title" data-translate="hero-title">AstroVia</h1>
+            <!-- subtitle biraz uzun oldu ama olsun -->
+            <p class="hero-subtitle" data-translate="hero-subtitle">Gelişmiş Asteroid Savunma ve Çarpma Simülasyon Sistemi</p>
+            <p class="hero-description" data-translate="hero-description">
+                NASA ve USGS verilerini kullanarak asteroid tehditlerini analiz edin ve çarpma etkilerini simüle edin. 
+                Blink analizi ile asteroid keşfi yapın, gerçek zamanlı etki simülasyonları çalıştırın.
+                <!-- bu açıklama biraz sıkıcı ama olsun -->
+            </p>
+            
+            <!-- Ana butonlar -->
+                <div class="hero-main-actions">
+                    <a href="detect.html" class="primary-button large" data-aos="fade-up" data-aos-delay="400">
+                        <span class="btn-icon">🔍</span>
+                        <span data-translate="btn-blink">Blink Analiz</span>
+                        <div class="btn-glow"></div>
+                    </a>
+                    <a href="impact.html" class="primary-button large" data-aos="fade-up" data-aos-delay="500">
+                        <span class="btn-icon">💥</span>
+                        <span data-translate="btn-impact">Etki Simülasyonu</span>
+                        <div class="btn-glow"></div>
+                    </a>
+                </div>
+
+            <!-- Video bölümü -->
+            <div class="hero-video" data-aos="fade-up" data-aos-delay="600">
+                <div class="video-container">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ" 
+                        title="AstroVia Tanıtım Videosu"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                    <p class="video-description" data-translate="video-description">30 saniye tanıtım videosu - AstroVia'nın gücünü keşfedin</p>
+                </div>
+
+            <!-- Slayt linkleri -->
+            <div class="hero-slides" data-aos="fade-up" data-aos-delay="700">
+                <h3 data-translate="slides-title">Detaylı Sunum Slaytları</h3>
+                <div class="slide-links">
+                    <a href="#" class="slide-link">1. Giriş ve Konsept</a>
+                    <a href="#" class="slide-link">2. Teknoloji Altyapısı</a>
+                    <a href="#" class="slide-link">3. Blink Analiz Sistemi</a>
+                    <a href="#" class="slide-link">4. Etki Simülasyonu</a>
+                    <a href="#" class="slide-link">5. Veri Kaynakları</a>
+                    <a href="#" class="slide-link">6. Gelecek Planları</a>
+                    <a href="#" class="slide-link">7. Sonuç ve Öneriler</a>
+            </div>
+            </div>
+
+            <!-- NASA/USGS logoları -->
+            <div class="hero-partners" data-aos="fade-up" data-aos-delay="800">
+                <h3 data-translate="partners-title">Veri Kaynaklarımız</h3>
+                <div class="partner-logos">
+                    <div class="partner-logo">
+                        <div class="logo-placeholder">NASA</div>
+                        <p>Near-Earth Object Database</p>
+                    </div>
+                    <div class="partner-logo">
+                        <div class="logo-placeholder">USGS</div>
+                        <p>Geological Survey Data</p>
+                    </div>
+                    <div class="partner-logo">
+                        <div class="logo-placeholder">ESA</div>
+                        <p>Space Situational Awareness</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator" data-aos="fade-in" data-aos-delay="1000">
+            <div class="scroll-arrow"></div>
+            <span>Keşfetmeye devam edin</span>
+        </div>
+    </section>
+
+    <!-- Asteroid Database Section -->
+    <section class="asteroid-database-section" id="database" data-aos="fade-up">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Database</div>
+                <h2>Near-Earth Object Catalog</h2>
+                <p>Comprehensive tracking and analysis of potentially hazardous asteroids approaching Earth</p>
+                <div class="detection-status">
+                    <div class="status-indicator">
+                        <div class="status-dot active"></div>
+                        <span>Active Monitoring Network</span>
+                    </div>
+                    <div class="last-update">Last updated: 2025-10-04 14:30 UTC</div>
+                </div>
+            </div>
+            
+            <div class="asteroid-grid" id="asteroidGrid">
+                <!-- Asteroidler dinamik olarak yüklenecek - main.js'de populateAsteroidGrid() fonksiyonu -->
+                <!-- Not: Veri yükleme hatası olursa fallback data kullanılıyor -->
+            </div>
+            
+            <div class="detection-systems-grid">
+                <h3>Global Detection Network</h3>
+                <div id="detectionSystemsGrid">
+                    <!-- Tespit sistemleri dinamik olarak yüklenecek -->
+                    <!-- NASA, ESA ve diğer ajansların sistemleri -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Simulation Section -->
+    <section class="simulation-section" id="simulationSection">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-badge">Simulation</div>
+                <h2>Impact Assessment Platform</h2>
+                <p>Real-time asteroid impact modeling using validated physics equations and damage assessment algorithms</p>
+            </div>
+            
+            <div class="simulation-controls" data-aos="fade-up" data-aos-delay="100">
+                <div class="asteroid-selector-container">
+                    <label>Target Object:</label>
+                    <select id="asteroidSelector" class="asteroid-selector">
+                        <option value="">Select Asteroid</option>
+                    </select>
+                </div>
+                <div class="coordinates-display">
+                    <span id="coordsDisplay">Selected Target: None</span>
+                </div>
+            </div>
+            
+            <div class="map-container" data-aos="zoom-in" data-aos-delay="200">
+                <div id="map"></div>
+                <div class="map-overlay-info">
+                    <div class="impact-info" id="impactInfo">
+                        <h4>Impact Analysis</h4>
+                        <div class="impact-details">
+                            <div class="detail-item">
+                                <span class="detail-icon">⚡</span>
+                                <span class="detail-text" id="impactEnergy">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-icon">○</span>
+                                <span class="detail-text" id="impactCrater">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-icon">▲</span>
+                                <span class="detail-text" id="impactPopulation">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color danger"></div>
+                        <span>Severe Damage Zone</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color warning"></div>
+                        <span>Moderate Damage Zone</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color safe"></div>
+                        <span>Light Damage Zone</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risk Assessment Section -->
+    <section class="risk-section" data-aos="fade-up">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Risk Analysis</div>
+                <h2>Threat Assessment Dashboard</h2>
+                <p>Advanced probability calculations and impact risk evaluation using scientific models</p>
+            </div>
+            
+            <div class="risk-dashboard">
+                <div class="risk-meter-container" data-aos="zoom-in">
+                    <div class="risk-meter">
+                        <div class="risk-bar" id="riskBar"></div>
+                        <span class="risk-label" id="riskLabel">Düşük Risk</span>
+                    </div>
+                    <div class="risk-details" id="riskDetails">
+                        <div class="risk-item">
+                            <span class="risk-icon">⊙</span>
+                            <span class="risk-text">
+                                Impact Probability: <strong id="probabilityVal">0.00%</strong>
+                            </span>
+                        </div>
+                        <div class="risk-item">
+                            <span class="risk-icon">⟳</span>
+                            <span class="risk-text">
+                                Closest Approach: <strong id="approachDate">-</strong>
+                            </span>
+                        </div>
+                        <div class="risk-item">
+                            <span class="risk-icon">◷</span>
+                            <span class="risk-text">
+                                Time to Event: <strong id="timeRemaining">-</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="risk-explanation" data-aos="fade-left">
+                    <h3>Risk Classification Matrix</h3>
+                    <div class="risk-levels">
+                        <div class="risk-level low">
+                            <span class="level-color"></span>
+                            <div class="level-info">
+                                <strong>Low Risk</strong>
+                                <p>Impact probability < 0.01%. Routine monitoring sufficient.</p>
+                            </div>
+                        </div>
+                        <div class="risk-level medium">
+                            <span class="level-color"></span>
+                            <div class="level-info">
+                                <strong>Moderate Risk</strong>
+                                <p>0.01-0.1% probability. Enhanced tracking and analysis required.</p>
+                            </div>
+                        </div>
+                        <div class="risk-level high">
+                            <span class="level-color"></span>
+                            <div class="level-info">
+                                <strong>High Risk</strong>
+                                <p>0.1-1% probability. Emergency contingency planning activated.</p>
+                            </div>
+                        </div>
+                        <div class="risk-level critical">
+                            <span class="level-color"></span>
+                            <div class="level-info">
+                                <strong>Critical Risk</strong>
+                                <p>> 1% probability. Active defense systems deployment required.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parameters Section -->
+    <section class="parameters-section" data-aos="fade-up">
+        <div class="container">
+            <div class="section-header">
+                <h2>⚙️ Simülasyon Parametreleri</h2>
+                <p>Asteroid özelliklerini değiştirerek farklı senaryoları test edin</p>
+            </div>
+            
+            <div class="parameter-controls">
+                <div class="parameter-tabs" data-aos="fade-up">
+                    <button class="tab-btn active" data-tab="asteroid">🔭 Asteroid Özellikleri</button>
+                    <button class="tab-btn" data-tab="scenario">📋 Hazır Senaryolar</button>
+                </div>
+                
+                <div class="tab-content active" id="asteroid-tab">
+                    <div class="parameters-grid">
+                        <div class="parameter" data-aos="fade-up" data-aos-delay="100">
+                            <label class="param-label">
+                                <span class="param-icon">📏</span>
+                                <span class="param-name">Asteroid Çapı</span>
+                                <span class="param-value" id="diameterVal">120</span>
+                                <span class="param-unit">metre</span>
+                            </label>
+                            <input type="range" id="diameter" min="10" max="10000" value="120" class="neon-slider">
+                            <div class="param-description">
+                                Asteroid boyutu hasar miktarını doğrudan etkiler. 10m: pencere kırılması, 1000m+: kitlesel yıkım.
+                            </div>
+                        </div>
+
+                        <div class="parameter" data-aos="fade-up" data-aos-delay="200">
+                            <label class="param-label">
+                                <span class="param-icon">⚡</span>
+                                <span class="param-name">Çarpma Hızı</span>
+                                <span class="param-value" id="speedVal">19.5</span>
+                                <span class="param-unit">km/saniye</span>
+                            </label>
+                            <input type="range" id="speed" min="5" max="72" value="19.5" step="0.1" class="neon-slider">
+                            <div class="param-description">
+                                Dünya'nın kaçış hızı 11 km/s. Daha yüksek hızlar daha büyük patlamalar yaratır.
+                            </div>
+                        </div>
+
+                        <div class="parameter" data-aos="fade-up" data-aos-delay="300">
+                            <label class="param-label">
+                                <span class="param-icon">🪨</span>
+                                <span class="param-name">Materyal Yoğunluğu</span>
+                                <span class="param-value" id="densityVal">3300</span>
+                                <span class="param-unit">kg/m³</span>
+                            </label>
+                            <input type="range" id="density" min="1000" max="8000" value="3300" class="neon-slider">
+                            <div class="param-description">
+                                Taş: ~2500, Demir: ~7800 kg/m³. Yoğun asteroidler daha fazla kinetik enerji taşır.
+                            </div>
+                        </div>
+
+                        <div class="parameter" data-aos="fade-up" data-aos-delay="400">
+                            <label class="param-label">
+                                <span class="param-icon">◀</span>
+                                <span class="param-name">Entry Angle</span>
+                                <span class="param-value" id="angleVal">35</span>
+                                <span class="param-unit">degrees</span>
+                            </label>
+                            <input type="range" id="angle" min="10" max="90" value="35" class="professional-slider">
+                            <div class="param-description">
+                                Vertical impact (90°) maximizes damage concentration. Shallow angles distribute effects over wider areas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="scenario-tab">
+                    <div class="scenario-grid">
+                        <div class="scenario-card" data-scenario="chelyabinsk" data-aos="fade-up" data-aos-delay="100">
+                            <div class="scenario-header">
+                                <h4>Chelyabinsk Event</h4>
+                                <span class="scenario-type historical">Historical</span>
+                            </div>
+                            <p>19m object at 19 km/s. Russian city impact: 1,500 injuries, thousands of windows shattered from airburst.</p>
+                            <div class="scenario-stats">
+                                <span>19m</span> • <span>19 km/s</span> • <span>2013</span>
+                            </div>
+                        </div>
+                        <div class="scenario-card" data-scenario="tunguska" data-aos="fade-up" data-aos-delay="200">
+                            <div class="scenario-header">
+                                <h4>Tunguska Impact</h4>
+                                <span class="scenario-type historical">Historical</span>
+                            </div>
+                            <p>60m object at 15 km/s. Flattened 2,000 km² of Siberian forest, felled 80 million trees.</p>
+                            <div class="scenario-stats">
+                                <span>60m</span> • <span>15 km/s</span> • <span>1908</span>
+                            </div>
+                        </div>
+                        <div class="scenario-card" data-scenario="city" data-aos="fade-up" data-aos-delay="300">
+                            <div class="scenario-header">
+                                <h4>City Killer</h4>
+                                <span class="scenario-type simulation">Simulation</span>
+                            </div>
+                            <p>150m object at 17 km/s. Sufficient energy to completely destroy a major metropolitan area.</p>
+                            <div class="scenario-stats">
+                                <span>150m</span> • <span>17 km/s</span> • <span>Hypothetical</span>
+                            </div>
+                        </div>
+                        <div class="scenario-card" data-scenario="regional" data-aos="fade-up" data-aos-delay="400">
+                            <div class="scenario-header">
+                                <h4>Regional Devastation</h4>
+                                <span class="scenario-type simulation">Simulation</span>
+                            </div>
+                            <p>500m object at 20 km/s. Country-scale impact effects, regional climate disruption.</p>
+                            <div class="scenario-stats">
+                                <span>500m</span> • <span>20 km/s</span> • <span>Hypothetical</span>
+                            </div>
+                        </div>
+                        <div class="scenario-card" data-scenario="global" data-aos="fade-up" data-aos-delay="500">
+                            <div class="scenario-header">
+                                <h4>Extinction Level Event</h4>
+                                <span class="scenario-type historical">Paleontological</span>
+                            </div>
+                            <p>10km object at 25 km/s. Similar to the Chicxulub impactor that ended the dinosaur era 66 million years ago.</p>
+                            <div class="scenario-stats">
+                                <span>10km</span> • <span>25 km/s</span> • <span>66 Mya</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="simulation-controls-bottom">
+                    <button id="simulate" class="simulate-btn" data-aos="zoom-in">
+                        <span class="btn-icon">▶</span>
+                        <span>Run Impact Simulation</span>
+                        <div class="btn-glow"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section-main" data-aos="fade-up">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">Analysis</div>
+                <h2>Impact Assessment Results</h2>
+                <p>Comprehensive analysis of asteroid impact effects across multiple domains</p>
+            </div>
+            
+            <div class="results-dashboard">
+                <!-- Physical Impact Category -->
+                <div class="result-category" data-aos="fade-up" data-aos-delay="100">
+                    <div class="category-header">
+                        <div class="category-icon">⚡</div>
+                        <div class="category-info">
+                            <h3>Physical Impact Effects</h3>
+                            <p>Direct kinetic energy release and geological consequences</p>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <div class="metric-header">
+                                    <span class="metric-icon">💥</span>
+                                    <span class="metric-name">Kinetic Energy Release</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span class="value" id="energyResult">-</span>
+                                    <span class="unit">Megatons TNT</span>
+                                </div>
+                                <div class="metric-description">
+                                    Total explosive energy equivalent. For reference: Hiroshima bomb = 0.015 Mt, Tsar Bomba = 50 Mt
+                                </div>
+                                <div class="metric-comparison">
+                                    <div class="comparison-bar">
+                                        <div class="comparison-fill" data-metric="energy"></div>
+                                    </div>
+                                    <span class="comparison-text" id="energyComparison">-</span>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="metric-header">
+                                    <span class="metric-icon">○</span>
+                                    <span class="metric-name">Crater Diameter</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span class="value" id="craterResult">-</span>
+                                    <span class="unit">kilometers</span>
+                                </div>
+                                <div class="metric-description">
+                                    Permanent geological scar formed by the impact. Calculated using scaling laws from laboratory experiments and observations.
+                                </div>
+                                <div class="metric-comparison">
+                                    <div class="comparison-bar">
+                                        <div class="comparison-fill" data-metric="crater"></div>
+                                    </div>
+                                    <span class="comparison-text" id="craterComparison">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Environmental Impact Category -->
+                <div class="result-category" data-aos="fade-up" data-aos-delay="200">
+                    <div class="category-header">
+                        <div class="category-icon">🌍</div>
+                        <div class="category-info">
+                            <h3>Environmental & Atmospheric Effects</h3>
+                            <p>Secondary effects on atmosphere, climate, and ecosystems</p>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <div class="metric-header">
+                                    <span class="metric-icon">🌊</span>
+                                    <span class="metric-name">Blast Wave Radius</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span class="value" id="blastRadius">-</span>
+                                    <span class="unit">kilometers</span>
+                                </div>
+                                <div class="metric-description">
+                                    Overpressure zone causing structural damage. Buildings collapse at 20+ psi, glass breaks at 1 psi.
+                                </div>
+                                <div class="damage-zones">
+                                    <div class="zone severe">
+                                        <span class="zone-label">Severe Damage</span>
+                                        <span class="zone-radius" id="severeZone">-</span>
+                                    </div>
+                                    <div class="zone moderate">
+                                        <span class="zone-label">Moderate Damage</span>
+                                        <span class="zone-radius" id="moderateZone">-</span>
+                                    </div>
+                                    <div class="zone light">
+                                        <span class="zone-label">Light Damage</span>
+                                        <span class="zone-radius" id="lightZone">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="metric-header">
+                                    <span class="metric-icon">🔥</span>
+                                    <span class="metric-name">Thermal Effects</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span class="value" id="thermalRadius">-</span>
+                                    <span class="unit">kilometers</span>
+                                </div>
+                                <div class="metric-description">
+                                    Range of thermal radiation causing burns and fires. First-degree burns occur at the outer edge.
+                                </div>
+                                <div class="thermal-effects">
+                                    <div class="effect-item">
+                                        <span class="effect-icon">🔥</span>
+                                        <span class="effect-text">Third-degree burns: <span id="thermalSevere">-</span> km</span>
+                                    </div>
+                                    <div class="effect-item">
+                                        <span class="effect-icon">🌡️</span>
+                                        <span class="effect-text">First-degree burns: <span id="thermalLight">-</span> km</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Human Impact Category -->
+                <div class="result-category" data-aos="fade-up" data-aos-delay="300">
+                    <div class="category-header">
+                        <div class="category-icon">👥</div>
+                        <div class="category-info">
+                            <h3>Human & Societal Impact</h3>
+                            <p>Population effects and infrastructure damage assessment</p>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <div class="metric-header">
+                                    <span class="metric-icon">▲</span>
+                                    <span class="metric-name">Affected Population</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span class="value" id="populationResult">-</span>
+                                    <span class="unit">million people</span>
+                                </div>
+                                <div class="metric-description">
+                                    Estimated population within damage zones. Based on global population density data and impact radius calculations.
+                                </div>
+                                <div class="population-breakdown">
+                                    <div class="breakdown-item critical">
+                                        <span class="breakdown-label">Critical Zone</span>
+                                        <span class="breakdown-value" id="popCritical">-</span>
+                                    </div>
+                                    <div class="breakdown-item severe">
+                                        <span class="breakdown-label">Severe Zone</span>
+                                        <span class="breakdown-value" id="popSevere">-</span>
+                                    </div>
+                                    <div class="breakdown-item moderate">
+                                        <span class="breakdown-label">Moderate Zone</span>
+                                        <span class="breakdown-value" id="popModerate">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="metric-header">
+                                    <span class="metric-icon">🏗️</span>
+                                    <span class="metric-name">Infrastructure Impact</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span class="value" id="infrastructureScore">-</span>
+                                    <span class="unit">damage index</span>
+                                </div>
+                                <div class="metric-description">
+                                    Composite assessment of damage to buildings, transportation, utilities, and critical infrastructure.
+                                </div>
+                                <div class="infrastructure-details">
+                                    <div class="infra-item">
+                                        <span class="infra-icon">🏢</span>
+                                        <span class="infra-label">Buildings:</span>
+                                        <span class="infra-status" id="buildingDamage">-</span>
+                                    </div>
+                                    <div class="infra-item">
+                                        <span class="infra-icon">🛣️</span>
+                                        <span class="infra-label">Transportation:</span>
+                                        <span class="infra-status" id="transportDamage">-</span>
+                                    </div>
+                                    <div class="infra-item">
+                                        <span class="infra-icon">⚡</span>
+                                        <span class="infra-label">Utilities:</span>
+                                        <span class="infra-status" id="utilityDamage">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Economic Impact Category -->
+                <div class="result-category" data-aos="fade-up" data-aos-delay="400">
+                    <div class="category-header">
+                        <div class="category-icon">💰</div>
+                        <div class="category-info">
+                            <h3>Economic & Recovery Analysis</h3>
+                            <p>Financial impact assessment and recovery timeline estimates</p>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <div class="metric-header">
+                                    <span class="metric-icon">💵</span>
+                                    <span class="metric-name">Economic Damage</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span class="value" id="economicDamage">-</span>
+                                    <span class="unit">billion USD</span>
+                                </div>
+                                <div class="metric-description">
+                                    Estimated direct and indirect economic losses including infrastructure, lost productivity, and recovery costs.
+                                </div>
+                                <div class="economic-breakdown">
+                                    <div class="econ-category">
+                                        <span class="econ-label">Direct Damage:</span>
+                                        <span class="econ-value" id="directCost">-</span>
+                                    </div>
+                                    <div class="econ-category">
+                                        <span class="econ-label">Indirect Losses:</span>
+                                        <span class="econ-value" id="indirectCost">-</span>
+                                    </div>
+                                    <div class="econ-category">
+                                        <span class="econ-label">Recovery Cost:</span>
+                                        <span class="econ-value" id="recoveryCost">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="metric-header">
+                                    <span class="metric-icon">⏱️</span>
+                                    <span class="metric-name">Recovery Timeline</span>
+                                </div>
+                                <div class="metric-value">
+                                    <span class="value" id="recoveryTime">-</span>
+                                    <span class="unit">years</span>
+                                </div>
+                                <div class="metric-description">
+                                    Estimated time for complete recovery of affected areas based on historical disaster recovery data.
+                                </div>
+                                <div class="recovery-phases">
+                                    <div class="phase emergency">
+                                        <span class="phase-name">Emergency Response</span>
+                                        <span class="phase-duration">0-6 months</span>
+                                    </div>
+                                    <div class="phase rebuild">
+                                        <span class="phase-name">Reconstruction</span>
+                                        <span class="phase-duration" id="reconstructionPhase">-</span>
+                                    </div>
+                                    <div class="phase recovery">
+                                        <span class="phase-name">Full Recovery</span>
+                                        <span class="phase-duration" id="fullRecoveryPhase">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+                <div class="comparison-chart" data-aos="fade-up" data-aos-delay="500">
+                    <h3>📈 Tarihsel Karşılaştırma</h3>
+                    <div id="graph"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Defense Strategies Section -->
+    <section class="defense-section" data-aos="fade-up">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-translate="defense-title">🛡️ Gezegen Savunma Stratejileri</h2>
+                <p data-translate="defense-subtitle">Asteroid tehdidine karşı geliştirilmiş savunma yöntemleri</p>
+            </div>
+            
+            <div class="defense-intro" data-aos="fade-up" data-aos-delay="100">
+                <div class="intro-text">
+                    <h3 data-translate="defense-intro">Nasıl Korunabiliriz?</h3>
+                    <p data-translate="defense-text">
+                        NASA, ESA ve diğer uzay ajansları asteroid tehdidine karşı çeşitli savunma stratejileri geliştiriyor. 
+                        2022'de NASA'nın DART misyonu, bir asteroidi yörüngesinden saptırmayı başarıyla test etti.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="strategies-table-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="strategies-table">
+                    <div class="table-header">
+                        <div class="table-cell">Savunma Yöntemi</div>
+                        <div class="table-cell">Etkinlik</div>
+                        <div class="table-cell">Maliyet</div>
+                        <div class="table-cell">Hazırlık Süresi</div>
+                        <div class="table-cell">Başarı Oranı</div>
+                    </div>
+                    
+                    <div class="table-row">
+                        <div class="table-cell strategy-name">
+                            <div class="strategy-icon">🚀</div>
+                            <div class="strategy-info">
+                                <h4>Kinetik Çarpıştırıcı</h4>
+                                <p>Yüksek hızlı uzay aracı ile asteroid yörüngesini değiştirme</p>
+                            </div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">85%</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">$1.2B</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">5 yıl</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value success">75%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-row">
+                        <div class="table-cell strategy-name">
+                            <div class="strategy-icon">💥</div>
+                            <div class="strategy-info">
+                                <h4>Nükleer Defleksiyon</h4>
+                                <p>Kontrollü nükleer patlama ile yörünge değişikliği</p>
+                            </div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">95%</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">$2.8B</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">3 yıl</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value success">90%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-row">
+                        <div class="table-cell strategy-name">
+                            <div class="strategy-icon">⛵</div>
+                            <div class="strategy-info">
+                                <h4>Güneş Yelkeni</h4>
+                                <p>Asteroid yüzeyine reflektör yerleştirme</p>
+                            </div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">60%</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">$0.8B</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">10 yıl</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value success">85%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-row">
+                        <div class="table-cell strategy-name">
+                            <div class="strategy-icon">🕳️</div>
+                            <div class="strategy-info">
+                                <h4>Gravitasyonel Çekici</h4>
+                                <p>Uzay aracının çekim gücü ile yavaş yörünge değişimi</p>
+                            </div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">70%</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">$1.5B</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">15 yıl</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value success">95%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-row">
+                        <div class="table-cell strategy-name">
+                            <div class="strategy-icon">🔴</div>
+                            <div class="strategy-info">
+                                <h4>Lazer Ablasyon</h4>
+                                <p>Güçlü lazer ile asteroid yüzeyini buharlaştırma</p>
+                            </div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">75%</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">$3.2B</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value">8 yıl</div>
+                        </div>
+                        <div class="table-cell">
+                            <div class="stat-value success">80%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education-section" data-aos="fade-up">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-translate="education-title">📚 Asteroid Bilimi</h2>
+                <p data-translate="education-subtitle">Asteroidler hakkında bilinmesi gerekenler</p>
+            </div>
+            
+            <div class="education-content">
+                <div class="fact-cards">
+                    <div class="fact-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="fact-icon">🌌</div>
+                        <h3>Asteroidler Nedir?</h3>
+                        <p>Güneş sistemi oluşurken geriye kalan kayalık parçalar. Çoğu Mars ve Jüpiter arasındaki kuşakta bulunur.</p>
+                    </div>
+                    
+                    <div class="fact-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="fact-icon">📊</div>
+                        <h3>İstatistikler</h3>
+                        <p>Yaklaşık 1 milyon asteroid biliniyor. 100m+'dan büyük olanlar şehirleri yok edebilir.</p>
+                    </div>
+                    
+                    <div class="fact-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="fact-icon">🔭</div>
+                        <h3>Tespit Sistemleri</h3>
+                        <p>Dünya'da 20'den fazla teleskop sistemi sürekli gökyüzünü tarayarak asteroid aramakta.</p>
+                    </div>
+                    
+                    <div class="fact-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="fact-icon">⚡</div>
+                        <h3>Çarpma Riski</h3>
+                        <p>100m asteroid her 10,000 yılda bir, 1km asteroid ise her 500,000 yılda bir Dünya'ya çarpar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" data-aos="fade-up">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🌌 AstroGuard</h3>
+                    <p>Bilimsel verilerle gezegen savunma sistemleri</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Veri Kaynakları</h4>
+                    <ul>
+                        <li>NASA JPL Asteroid Database</li>
+                        <li>ESA Space Situational Awareness</li>
+                        <li>Çarpma Hesaplamaları (Collins vd., 2005)</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Teknolojiler</h4>
+                    <ul>
+                        <li>Leaflet.js - İnteraktif Haritalar</li>
+                        <li>Plotly.js - Veri Görselleştirme</li>
+                        <li>AOS.js - Animasyonlar</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AstroGuard - Gezegen Savunma Sistemi. Eğitim ve araştırma amaçlıdır.</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    NASA Space Apps Challenge 2025 için geliştirilmiştir | 
+                    Geliştirici notları: Bu proje eğitim amaçlıdır, gerçek asteroid verileri kullanılmamıştır.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
+    <script>
+        // Initialize AOS animations - çok güzel görünüyor
+        // bu animasyonlar olmadan sıkıcı olurdu
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+        
+        // TODO: Performance optimizasyonu yapılabilir (ama etmeyeceğim)
+        // console.log('Sayfa yüklendi:', new Date().toISOString());
+        
+        // debug için ekledim, sonra silerim (silmeyeceğim)
+        console.log("HTML yüklendi, animasyonlar başlatıldı");
+    </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+{
+  "asteroids": [
+    {
+      "id": "AST-2024-001",
+      "name": "Apophis-2029",
+      "diameter_m": 340,
+      "density_kg_m3": 2600,
+      "speed_kms": 7.4,
+      "entry_angle_deg": 20,
+      "impact_lat": 41.0,
+      "impact_lon": 29.0,
+      "probability": 0.00004,
+      "discovery_date": "2024-01-15",
+      "closest_approach": "2029-04-13",
+      "risk_level": "yellow",
+      "composition": "S-type (silicate)",
+      "orbital_period": 323.6
+    },
+    {
+      "id": "AST-2024-002", 
+      "name": "City-Killer",
+      "diameter_m": 150,
+      "density_kg_m3": 3200,
+      "speed_kms": 15.2,
+      "entry_angle_deg": 45,
+      "impact_lat": 40.7,
+      "impact_lon": -74.0,
+      "probability": 0.0012,
+      "discovery_date": "2024-03-08",
+      "closest_approach": "2025-09-22",
+      "risk_level": "orange",
+      "composition": "C-type (carbonaceous)",
+      "orbital_period": 892.4
+    },
+    {
+      "id": "AST-2024-003",
+      "name": "Tunguska-II",
+      "diameter_m": 60,
+      "density_kg_m3": 2800,
+      "speed_kms": 12.8,
+      "entry_angle_deg": 30,
+      "impact_lat": 60.9,
+      "impact_lon": 101.9,
+      "probability": 0.025,
+      "discovery_date": "2024-02-28",
+      "closest_approach": "2024-12-15",
+      "risk_level": "red",
+      "composition": "S-type (silicate)",
+      "orbital_period": 456.2
+    },
+    {
+      "id": "AST-2024-004",
+      "name": "Dinosaur-Buster",
+      "diameter_m": 10000,
+      "density_kg_m3": 3500,
+      "speed_kms": 20.0,
+      "entry_angle_deg": 60,
+      "impact_lat": 25.7,
+      "impact_lon": -80.2,
+      "probability": 0.0000001,
+      "discovery_date": "2024-01-03",
+      "closest_approach": "2087-06-30",
+      "risk_level": "purple",
+      "composition": "M-type (metallic)",
+      "orbital_period": 23847.6
+    },
+    {
+      "id": "AST-2024-005",
+      "name": "Bennu-Twin",
+      "diameter_m": 492,
+      "density_kg_m3": 1190,
+      "speed_kms": 6.1,
+      "entry_angle_deg": 15,
+      "impact_lat": 35.7,
+      "impact_lon": 139.7,
+      "probability": 0.00037,
+      "discovery_date": "2024-04-12",
+      "closest_approach": "2182-09-24",
+      "risk_level": "yellow",
+      "composition": "B-type (primitive)",
+      "orbital_period": 1847.3
+    }
+  ],
+  "detection_systems": [
+    {
+      "name": "Catalina Sky Survey",
+      "location": "Arizona, ABD",
+      "detection_range_km": 150000000,
+      "min_size_m": 30,
+      "status": "active",
+      "daily_scans": 1200
+    },
+    {
+      "name": "LINEAR",
+      "location": "New Mexico, ABD", 
+      "detection_range_km": 200000000,
+      "min_size_m": 50,
+      "status": "active",
+      "daily_scans": 800
+    },
+    {
+      "name": "NEOWISE",
+      "location": "Uzay",
+      "detection_range_km": 500000000,
+      "min_size_m": 100,
+      "status": "active",
+      "daily_scans": 2400
+    }
+  ],
+  "mitigation_strategies": [
+    {
+      "name": "Kinetik Çarpıştırıcı",
+      "description": "Yüksek hızlı uzay aracı ile asteroid yörüngesini değiştirme",
+      "effectiveness": 85,
+      "cost_billion_usd": 1.2,
+      "lead_time_years": 5,
+      "success_rate": 0.75,
+      "suitable_sizes": [50, 500]
+    },
+    {
+      "name": "Nükleer Defleksiyon",
+      "description": "Kontrollü nükleer patlama ile yörünge değişikliği",
+      "effectiveness": 95,
+      "cost_billion_usd": 2.8,
+      "lead_time_years": 3,
+      "success_rate": 0.90,
+      "suitable_sizes": [100, 10000]
+    },
+    {
+      "name": "Güneş Yelkeni",
+      "description": "Asteroid yüzeyine reflektör yerleştirme",
+      "effectiveness": 60,
+      "cost_billion_usd": 0.8,
+      "lead_time_years": 10,
+      "success_rate": 0.85,
+      "suitable_sizes": [30, 200]
+    },
+    {
+      "name": "Gravitasyonel Çekici",
+      "description": "Uzay aracının çekim gücü ile yavaş yörünge değişimi",
+      "effectiveness": 70,
+      "cost_billion_usd": 1.5,
+      "lead_time_years": 15,
+      "success_rate": 0.95,
+      "suitable_sizes": [50, 300]
+    },
+    {
+      "name": "Lazer Ablasyon",
+      "description": "Güçlü lazer ile asteroid yüzeyini buharlaştırma",
+      "effectiveness": 75,
+      "cost_billion_usd": 3.2,
+      "lead_time_years": 8,
+      "success_rate": 0.80,
+      "suitable_sizes": [30, 400]
+    }
+  ]
+}
