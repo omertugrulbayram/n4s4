@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-page="detect">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body>
+<body data-title-key="detect-page-title">
     <div class="stars"></div>
     <div class="cosmic-bg"></div>
     
@@ -21,11 +21,11 @@
                 <span class="logo-sparkle">✨</span>
             </div>
             <div class="nav-links">
-                <a href="index.html" class="nav-link" data-translate="nav-home">Ana Sayfa</a>
-                <a href="detect.html" class="nav-link active" data-translate="nav-detect">Blink Analiz</a>
-                <a href="impact.html" class="nav-link" data-translate="nav-impact">Etki Simülasyonu</a>
-                <a href="about.html" class="nav-link" data-translate="nav-about">Hakkında</a>
-                <a href="legal.html" class="nav-link" data-translate="nav-legal">Yasal</a>
+                <a href="index.html" class="nav-link" data-i18n="nav-home">Ana Sayfa</a>
+                <a href="detect.html" class="nav-link active" data-i18n="nav-detect">Blink Analiz</a>
+                <a href="impact.html" class="nav-link" data-i18n="nav-impact">Etki Simülasyonu</a>
+                <a href="about.html" class="nav-link" data-i18n="nav-about">Hakkında</a>
+                <a href="legal.html" class="nav-link" data-i18n="nav-legal">Yasal</a>
                 <div class="language-selector">
                     <button class="lang-btn active" data-lang="tr">TR</button>
                     <button class="lang-btn" data-lang="en">EN</button>
@@ -38,10 +38,10 @@
     <section class="page-hero">
         <div class="container">
             <div class="page-hero-content" data-aos="fade-up">
-                <div class="page-badge" data-translate="detect-badge">Blink + AI ile aday taraması: dakikalar yerine saniyeler</div>
-                <h1 class="page-title" data-translate="detect-title">Blink Analiz Sistemi</h1>
-                <p class="page-subtitle" data-translate="detect-subtitle">FITS görüntülerini yükleyin, AI destekli asteroid keşfi yapın</p>
-                <p class="page-description" data-translate="detect-description">
+                <div class="page-badge" data-i18n="detect-hero-badge">Blink + AI ile aday taraması: dakikalar yerine saniyeler</div>
+                <h1 class="page-title" data-i18n="detect-hero-title">Blink Analiz Sistemi</h1>
+                <p class="page-subtitle" data-i18n="detect-hero-subtitle">FITS görüntülerini yükleyin, AI destekli asteroid keşfi yapın</p>
+                <p class="page-description" data-i18n="detect-hero-description">
                     Hizalama → fark alma → aday/tracklet adımlarını otomatik olarak gerçekleştirin. 
                     Blink.gif önizlemesi ve candidates.csv indirme özellikleri ile tam analiz raporu alın.
                 </p>
@@ -54,25 +54,25 @@
         <div class="container">
             <div class="upload-container" data-aos="fade-up">
                 <div class="upload-header">
-                    <h2>FITS Görüntü Yükleme</h2>
-                    <p>Astronomik görüntülerinizi yükleyerek asteroid analizi başlatın</p>
+                    <h2 data-i18n="detect-upload-heading">FITS Görüntü Yükleme</h2>
+                    <p data-i18n="detect-upload-subheading">Astronomik görüntülerinizi yükleyerek asteroid analizi başlatın</p>
                 </div>
                 
                 <div class="upload-area" id="uploadArea">
                     <div class="upload-icon">📁</div>
-                    <h3>FITS Dosyalarınızı Sürükleyin</h3>
-                    <p>veya <button class="upload-btn" id="uploadBtn">Dosya Seç</button></p>
+                    <h3 data-i18n="detect-upload-area-title">FITS Dosyalarınızı Sürükleyin</h3>
+                    <p><span data-i18n="detect-upload-or">veya</span> <button class="upload-btn" id="uploadBtn" data-i18n="detect-upload-select">Dosya Seç</button></p>
                     <input type="file" id="fileInput" multiple accept=".fits,.fit" style="display: none;">
                 </div>
 
                 <!-- Demo Data Button -->
                 <div class="demo-section">
-                    <h3>Demo için Örnek Veri</h3>
+                    <h3 data-i18n="detect-demo-title">Demo için Örnek Veri</h3>
                     <button class="demo-btn" id="demoBtn">
                         <span class="btn-icon">🎯</span>
-                        <span>Örnek FITS Yükle</span>
+                        <span data-i18n="detect-demo-button">Örnek FITS Yükle</span>
                     </button>
-                    <p class="demo-description">Test için hazırlanmış örnek asteroid verilerini kullanın</p>
+                    <p class="demo-description" data-i18n="detect-demo-description">Test için hazırlanmış örnek asteroid verilerini kullanın</p>
                 </div>
             </div>
         </div>
@@ -82,29 +82,29 @@
     <section class="progress-section" id="progressSection" style="display: none;">
         <div class="container">
             <div class="progress-container" data-aos="fade-up">
-                <h2>Analiz İlerlemesi</h2>
+                <h2 data-i18n="detect-progress-heading">Analiz İlerlemesi</h2>
                 <div class="progress-steps">
                     <div class="step" id="step1">
                         <div class="step-icon">1</div>
                         <div class="step-content">
-                            <h3>Hizalama</h3>
-                            <p>Görüntüleri hizalama işlemi</p>
+                            <h3 data-i18n="detect-step1-title">Hizalama</h3>
+                            <p data-i18n="detect-step1-desc">Görüntüleri hizalama işlemi</p>
                         </div>
                         <div class="step-status" id="status1">⏳</div>
                     </div>
                     <div class="step" id="step2">
                         <div class="step-icon">2</div>
                         <div class="step-content">
-                            <h3>Fark Alma</h3>
-                            <p>Görüntüler arası fark hesaplama</p>
+                            <h3 data-i18n="detect-step2-title">Fark Alma</h3>
+                            <p data-i18n="detect-step2-desc">Görüntüler arası fark hesaplama</p>
                         </div>
                         <div class="step-status" id="status2">⏸️</div>
                     </div>
                     <div class="step" id="step3">
                         <div class="step-icon">3</div>
                         <div class="step-content">
-                            <h3>Aday/Tracklet</h3>
-                            <p>Asteroid adaylarını tespit etme</p>
+                            <h3 data-i18n="detect-step3-title">Aday/Tracklet</h3>
+                            <p data-i18n="detect-step3-desc">Asteroid adaylarını tespit etme</p>
                         </div>
                         <div class="step-status" id="status3">⏸️</div>
                     </div>
@@ -113,7 +113,7 @@
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <div class="progress-text" id="progressText">Analiz başlatılıyor...</div>
+                <div class="progress-text" id="progressText" data-i18n="detect-progress-text-initial">Analiz başlatılıyor...</div>
             </div>
         </div>
     </section>
@@ -122,38 +122,39 @@
     <section class="results-section" id="resultsSection" style="display: none;">
         <div class="container">
             <div class="results-container" data-aos="fade-up">
-                <h2>Analiz Sonuçları</h2>
+                <h2 data-i18n="detect-results-heading">Analiz Sonuçları</h2>
                 
                 <!-- Blink GIF Preview -->
                 <div class="result-item">
-                    <h3>Blink GIF Önizleme</h3>
+                    <h3 data-i18n="detect-results-blink-heading">Blink GIF Önizleme</h3>
                     <div class="gif-preview">
                         <img id="blinkGif" src="" alt="Blink Analiz Sonucu" style="display: none;">
-                        <div class="gif-placeholder" id="gifPlaceholder">
-                            <div class="placeholder-icon">🎬</div>
-                            <p>Blink animasyonu oluşturuluyor...</p>
+                    <div class="gif-placeholder" id="gifPlaceholder">
+                            <div class="placeholder-icon" id="gifPlaceholderIcon">🎬</div>
+                            <p id="gifPlaceholderText" data-i18n="detect-results-placeholder">Blink animasyonu oluşturuluyor...</p>
+                            <button class="view-gif-btn" id="viewGifBtn" style="display: none;" data-i18n="common-view-gif">GIF'i Görüntüle</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Candidates CSV Download -->
                 <div class="result-item">
-                    <h3>Aday Listesi</h3>
+                    <h3 data-i18n="detect-results-candidates-heading">Aday Listesi</h3>
                     <div class="candidates-info">
                         <div class="candidates-count">
                             <span class="count-number" id="candidatesCount">0</span>
-                            <span class="count-label">Aday Tespit Edildi</span>
+                            <span class="count-label" data-i18n="detect-results-candidates-count-label">Aday Tespit Edildi</span>
                         </div>
                         <button class="download-btn" id="downloadCsv">
                             <span class="btn-icon">📊</span>
-                            <span>Candidates.csv İndir</span>
+                            <span data-i18n="detect-results-download">Candidates.csv İndir</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- Mini GIFs for each candidate -->
                 <div class="result-item">
-                    <h3>Aday Detayları</h3>
+                    <h3 data-i18n="detect-results-details-heading">Aday Detayları</h3>
                     <div class="candidates-grid" id="candidatesGrid">
                         <!-- Dinamik olarak oluşturulacak -->
                     </div>
@@ -166,57 +167,91 @@
     <section class="technical-details">
         <div class="container">
             <div class="details-container" data-aos="fade-up">
-                <h2>Teknik Detaylar</h2>
+                <h2 data-i18n="detect-technical-heading">Teknik Detaylar</h2>
                 <div class="details-grid">
                     <div class="detail-card">
                         <div class="detail-icon">🔍</div>
-                        <h3>Hizalama Algoritması</h3>
-                        <p>Gelişmiş görüntü hizalama teknikleri ile yıldız pozisyonlarını eşleştirme</p>
+                        <h3 data-i18n="detect-technical-alignment-title">Hizalama Algoritması</h3>
+                        <p data-i18n="detect-technical-alignment-desc">Gelişmiş görüntü hizalama teknikleri ile yıldız pozisyonlarını eşleştirme</p>
                     </div>
                     <div class="detail-card">
                         <div class="detail-icon">⚡</div>
-                        <h3>Fark Alma</h3>
-                        <p>Subtraction imaging ile asteroid hareketlerini tespit etme</p>
+                        <h3 data-i18n="detect-technical-diff-title">Fark Alma</h3>
+                        <p data-i18n="detect-technical-diff-desc">Subtraction imaging ile asteroid hareketlerini tespit etme</p>
                     </div>
                     <div class="detail-card">
                         <div class="detail-icon">🤖</div>
-                        <h3>AI Tespit</h3>
-                        <p>Makine öğrenmesi algoritmaları ile asteroid adaylarını filtreleme</p>
+                        <h3 data-i18n="detect-technical-ai-title">AI Tespit</h3>
+                        <p data-i18n="detect-technical-ai-desc">Makine öğrenmesi algoritmaları ile asteroid adaylarını filtreleme</p>
                     </div>
                     <div class="detail-card">
                         <div class="detail-icon">📈</div>
-                        <h3>SNR Analizi</h3>
-                        <p>Signal-to-Noise Ratio hesaplaması ile güvenilir tespit</p>
+                        <h3 data-i18n="detect-technical-snr-title">SNR Analizi</h3>
+                        <p data-i18n="detect-technical-snr-desc">Signal-to-Noise Ratio hesaplaması ile güvenilir tespit</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <script src="translations.js"></script>
+    <script src="language.js"></script>
+
     <script>
-        // Initialize AOS
+        // Initialize AOS animations
         AOS.init({
             duration: 1000,
             once: true,
             offset: 100
         });
 
-        // Upload functionality
+        const language = window.LanguageManager;
+
+        // Core DOM references
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
         const uploadBtn = document.getElementById('uploadBtn');
         const demoBtn = document.getElementById('demoBtn');
         const progressSection = document.getElementById('progressSection');
         const resultsSection = document.getElementById('resultsSection');
+        const progressTextElement = document.getElementById('progressText');
+        const progressFill = document.getElementById('progressFill');
+        const gifPlaceholderIcon = document.getElementById('gifPlaceholderIcon');
+        const gifPlaceholderText = document.getElementById('gifPlaceholderText');
+        const viewGifBtn = document.getElementById('viewGifBtn');
+        const candidatesGrid = document.getElementById('candidatesGrid');
+        const downloadCsvBtn = document.getElementById('downloadCsv');
 
-        // Upload area events
+        // Static data used for demo rendering
+        const candidateData = [
+            { id: 1, magnitude: 18.5, ra: "12h 34m 56s", dec: "+45° 12' 34\"" },
+            { id: 2, magnitude: 19.2, ra: "12h 35m 12s", dec: "+45° 13' 45\"" },
+            { id: 3, magnitude: 17.8, ra: "12h 35m 28s", dec: "+45° 14' 56\"" },
+            { id: 4, magnitude: 20.1, ra: "12h 35m 44s", dec: "+45° 15' 12\"" },
+            { id: 5, magnitude: 18.9, ra: "12h 36m 00s", dec: "+45° 16' 23\"" },
+            { id: 6, magnitude: 19.7, ra: "12h 36m 16s", dec: "+45° 17' 34\"" },
+            { id: 7, magnitude: 18.3, ra: "12h 36m 32s", dec: "+45° 18' 45\"" }
+        ];
+
+        const steps = [
+            { id: 'step1', status: 'status1', textKey: 'detect-progress-step1-text', duration: 2000, initialStatus: '⏳' },
+            { id: 'step2', status: 'status2', textKey: 'detect-progress-step2-text', duration: 3000, initialStatus: '⏸️' },
+            { id: 'step3', status: 'status3', textKey: 'detect-progress-step3-text', duration: 2500, initialStatus: '⏸️' }
+        ];
+
+        let currentStepIndex = -1;
+        let resultsReady = false;
+
+        // Event bindings
         uploadArea.addEventListener('click', () => fileInput.click());
-        uploadBtn.addEventListener('click', () => fileInput.click());
+        uploadBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            fileInput.click();
+        });
         fileInput.addEventListener('change', handleFileUpload);
 
-        // Drag and drop
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
+        uploadArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
             uploadArea.classList.add('dragover');
         });
 
@@ -224,24 +259,44 @@
             uploadArea.classList.remove('dragover');
         });
 
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
+        uploadArea.addEventListener('drop', (event) => {
+            event.preventDefault();
             uploadArea.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            handleFiles(files);
+            handleFiles(event.dataTransfer.files);
         });
 
-        // Demo button
         demoBtn.addEventListener('click', startDemoAnalysis);
 
-        function handleFileUpload(e) {
-            const files = e.target.files;
-            handleFiles(files);
+        downloadCsvBtn.addEventListener('click', downloadCandidatesCsv);
+
+        language.onChange(() => {
+            if (currentStepIndex === -1) {
+                progressTextElement.textContent = language.translate('detect-progress-text-initial');
+            } else if (currentStepIndex < steps.length) {
+                progressTextElement.textContent = language.translate(steps[currentStepIndex].textKey);
+            }
+
+            if (resultsReady) {
+                updateGifPlaceholderReady();
+                renderCandidateCards();
+            } else {
+                resetGifPlaceholder();
+            }
+        });
+
+        // Ensure initial UI reflects selected language
+        progressTextElement.textContent = language.translate('detect-progress-text-initial');
+        resetGifPlaceholder();
+
+        function handleFileUpload(event) {
+            handleFiles(event.target.files);
         }
 
         function handleFiles(files) {
-            if (files.length === 0) return;
-            
+            if (!files || files.length === 0) {
+                return;
+            }
+
             console.log('Files selected:', files.length);
             startAnalysis();
         }
@@ -252,23 +307,52 @@
         }
 
         function startAnalysis() {
-            // Show progress section
+            resetSteps();
+            resetGifPlaceholder();
+            resultsReady = false;
+
             progressSection.style.display = 'block';
+            resultsSection.style.display = 'none';
             progressSection.scrollIntoView({ behavior: 'smooth' });
 
-            // Simulate analysis steps
             simulateAnalysis();
         }
 
-        function simulateAnalysis() {
-            const steps = [
-                { id: 'step1', status: 'status1', text: 'Görüntüler hizalanıyor...', duration: 2000 },
-                { id: 'step2', status: 'status2', text: 'Fark hesaplanıyor...', duration: 3000 },
-                { id: 'step3', status: 'status3', text: 'Adaylar tespit ediliyor...', duration: 2500 }
-            ];
+        function resetSteps() {
+            steps.forEach((step, index) => {
+                const stepElement = document.getElementById(step.id);
+                const statusElement = document.getElementById(step.status);
+                if (stepElement) {
+                    stepElement.classList.remove('active', 'completed');
+                }
+                if (statusElement) {
+                    statusElement.textContent = step.initialStatus;
+                }
+            });
+            progressFill.style.width = '0%';
+            currentStepIndex = -1;
+            progressTextElement.textContent = language.translate('detect-progress-text-initial');
+        }
 
+        function resetGifPlaceholder() {
+            gifPlaceholderIcon.textContent = '🎬';
+            gifPlaceholderText.setAttribute('data-i18n', 'detect-results-placeholder');
+            gifPlaceholderText.textContent = language.translate('detect-results-placeholder');
+            viewGifBtn.style.display = 'none';
+            viewGifBtn.textContent = language.translate('common-view-gif');
+        }
+
+        function updateGifPlaceholderReady() {
+            gifPlaceholderIcon.textContent = '✅';
+            gifPlaceholderText.setAttribute('data-i18n', 'detect-results-ready-text');
+            gifPlaceholderText.textContent = language.translate('detect-results-ready-text');
+            viewGifBtn.style.display = 'inline-flex';
+            viewGifBtn.textContent = language.translate('common-view-gif');
+        }
+
+        function simulateAnalysis() {
             let currentStep = 0;
-            let progress = 0;
+            let progressValue = 0;
 
             function runStep() {
                 if (currentStep >= steps.length) {
@@ -279,25 +363,32 @@
                 const step = steps[currentStep];
                 const stepElement = document.getElementById(step.id);
                 const statusElement = document.getElementById(step.status);
-                const progressText = document.getElementById('progressText');
-                const progressFill = document.getElementById('progressFill');
 
-                // Activate current step
-                stepElement.classList.add('active');
-                statusElement.textContent = '🔄';
-                progressText.textContent = step.text;
+                currentStepIndex = currentStep;
 
-                // Simulate progress
+                if (stepElement) {
+                    stepElement.classList.add('active');
+                }
+                if (statusElement) {
+                    statusElement.textContent = '🔄';
+                }
+
+                progressTextElement.textContent = language.translate(step.textKey);
+
                 const progressInterval = setInterval(() => {
-                    progress += 2;
-                    progressFill.style.width = `${Math.min(progress, 100)}%`;
+                    progressValue += 2;
+                    progressFill.style.width = `${Math.min(progressValue, 100)}%`;
                 }, step.duration / 50);
 
                 setTimeout(() => {
                     clearInterval(progressInterval);
-                    statusElement.textContent = '✅';
-                    stepElement.classList.add('completed');
-                    currentStep++;
+                    if (statusElement) {
+                        statusElement.textContent = '✅';
+                    }
+                    if (stepElement) {
+                        stepElement.classList.add('completed');
+                    }
+                    currentStep += 1;
                     runStep();
                 }, step.duration);
             }
@@ -309,80 +400,63 @@
             resultsSection.style.display = 'block';
             resultsSection.scrollIntoView({ behavior: 'smooth' });
 
-            // Simulate results
             setTimeout(() => {
-                // Show blink GIF placeholder
-                const gifPlaceholder = document.getElementById('gifPlaceholder');
-                gifPlaceholder.innerHTML = `
-                    <div class="placeholder-icon">✅</div>
-                    <p>Blink animasyonu hazır!</p>
-                    <button class="view-gif-btn">GIF'i Görüntüle</button>
-                `;
+                resultsReady = true;
+                updateGifPlaceholderReady();
 
-                // Update candidates count
                 const candidatesCount = document.getElementById('candidatesCount');
-                candidatesCount.textContent = '7';
+                if (candidatesCount) {
+                    candidatesCount.textContent = '7';
+                }
 
-                // Generate candidate cards
-                generateCandidateCards();
+                renderCandidateCards();
             }, 1000);
         }
 
-        function generateCandidateCards() {
-            const grid = document.getElementById('candidatesGrid');
-            const candidates = [
-                { id: 1, magnitude: 18.5, ra: '12h 34m 56s', dec: '+45° 12\' 34"' },
-                { id: 2, magnitude: 19.2, ra: '12h 35m 12s', dec: '+45° 13\' 45"' },
-                { id: 3, magnitude: 17.8, ra: '12h 35m 28s', dec: '+45° 14\' 56"' },
-                { id: 4, magnitude: 20.1, ra: '12h 35m 44s', dec: '+45° 15\' 12"' },
-                { id: 5, magnitude: 18.9, ra: '12h 36m 00s', dec: '+45° 16\' 23"' },
-                { id: 6, magnitude: 19.7, ra: '12h 36m 16s', dec: '+45° 17\' 34"' },
-                { id: 7, magnitude: 18.3, ra: '12h 36m 32s', dec: '+45° 18\' 45"' }
-            ];
+        function renderCandidateCards() {
+            const raLabel = language.translate('detect-candidate-ra-label');
+            const decLabel = language.translate('detect-candidate-dec-label');
+            const miniGifLabel = language.translate('detect-candidate-mini-gif');
+            const detailsLabel = language.translate('detect-candidate-details');
 
-            grid.innerHTML = candidates.map(candidate => `
-                <div class="candidate-card">
-                    <div class="candidate-header">
-                        <h4>Aday ${candidate.id}</h4>
-                        <span class="magnitude">${candidate.magnitude}</span>
-                    </div>
-                    <div class="candidate-details">
-                        <div class="coordinate">
-                            <span class="label">RA:</span>
-                            <span class="value">${candidate.ra}</span>
+            candidatesGrid.innerHTML = candidateData.map((candidate) => {
+                const title = language.translate('detect-candidate-title', { id: candidate.id });
+                return `
+                    <div class="candidate-card">
+                        <div class="candidate-header">
+                            <h4>${title}</h4>
+                            <span class="magnitude">${candidate.magnitude}</span>
                         </div>
-                        <div class="coordinate">
-                            <span class="label">Dec:</span>
-                            <span class="value">${candidate.dec}</span>
+                        <div class="candidate-details">
+                            <div class="coordinate">
+                                <span class="label">${raLabel}</span>
+                                <span class="value">${candidate.ra}</span>
+                            </div>
+                            <div class="coordinate">
+                                <span class="label">${decLabel}</span>
+                                <span class="value">${candidate.dec}</span>
+                            </div>
+                        </div>
+                        <div class="candidate-actions">
+                            <button class="mini-gif-btn">${miniGifLabel}</button>
+                            <button class="details-btn">${detailsLabel}</button>
                         </div>
                     </div>
-                    <div class="candidate-actions">
-                        <button class="mini-gif-btn">Mini GIF</button>
-                        <button class="details-btn">Detaylar</button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        // Download CSV
-        document.getElementById('downloadCsv').addEventListener('click', () => {
-            const csvContent = `ID,Magnitude,RA,Dec,SNR,Status
-1,18.5,12:34:56,+45:12:34,5.2,Confirmed
-2,19.2,12:35:12,+45:13:45,4.8,Probable
-3,17.8,12:35:28,+45:14:56,6.1,Confirmed
-4,20.1,12:35:44,+45:15:12,3.9,Uncertain
-5,18.9,12:36:00,+45:16:23,4.5,Probable
-6,19.7,12:36:16,+45:17:34,4.2,Probable
-7,18.3,12:36:32,+45:18:45,5.7,Confirmed`;
-            
+        function downloadCandidatesCsv() {
+            const csvContent = `ID,Magnitude,RA,Dec,SNR,Status\n1,18.5,12:34:56,+45:12:34,5.2,Confirmed\n2,19.2,12:35:12,+45:13:45,4.8,Probable\n3,17.8,12:35:28,+45:14:56,6.1,Confirmed\n4,20.1,12:35:44,+45:15:12,3.9,Uncertain\n5,18.9,12:36:00,+45:16:23,4.5,Probable\n6,19.7,12:36:16,+45:17:34,4.2,Probable\n7,18.3,12:36:32,+45:18:45,5.7,Confirmed`;
+
             const blob = new Blob([csvContent], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'candidates.csv';
-            a.click();
+            const anchor = document.createElement('a');
+            anchor.href = url;
+            anchor.download = 'candidates.csv';
+            anchor.click();
             window.URL.revokeObjectURL(url);
-        });
+        }
     </script>
 </body>
 </html>

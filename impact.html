@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-page="impact">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body>
+<body data-title-key="impact-page-title">
     <div class="stars"></div>
     <div class="cosmic-bg"></div>
     
@@ -23,11 +23,11 @@
                 <span class="logo-sparkle">✨</span>
             </div>
             <div class="nav-links">
-                <a href="index.html" class="nav-link" data-translate="nav-home">Ana Sayfa</a>
-                <a href="detect.html" class="nav-link" data-translate="nav-detect">Blink Analiz</a>
-                <a href="impact.html" class="nav-link active" data-translate="nav-impact">Etki Simülasyonu</a>
-                <a href="about.html" class="nav-link" data-translate="nav-about">Hakkında</a>
-                <a href="legal.html" class="nav-link" data-translate="nav-legal">Yasal</a>
+                <a href="index.html" class="nav-link" data-i18n="nav-home">Ana Sayfa</a>
+                <a href="detect.html" class="nav-link" data-i18n="nav-detect">Blink Analiz</a>
+                <a href="impact.html" class="nav-link active" data-i18n="nav-impact">Etki Simülasyonu</a>
+                <a href="about.html" class="nav-link" data-i18n="nav-about">Hakkında</a>
+                <a href="legal.html" class="nav-link" data-i18n="nav-legal">Yasal</a>
                 <div class="language-selector">
                     <button class="lang-btn active" data-lang="tr">TR</button>
                     <button class="lang-btn" data-lang="en">EN</button>
@@ -40,10 +40,10 @@
     <section class="page-hero">
         <div class="container">
             <div class="page-hero-content" data-aos="fade-up">
-                <div class="page-badge" data-translate="impact-badge">Herkes için anlaşılır risk görselleştirme — bilimden karara köprü</div>
-                <h1 class="page-title" data-translate="impact-title">Etki Simülasyonu</h1>
-                <p class="page-subtitle" data-translate="impact-subtitle">Asteroid çarpma etkilerini simüle edin ve analiz edin</p>
-                <p class="page-description" data-translate="impact-description">
+                <div class="page-badge" data-i18n="impact-hero-badge">Herkes için anlaşılır risk görselleştirme — bilimden karara köprü</div>
+                <h1 class="page-title" data-i18n="impact-hero-title">Etki Simülasyonu</h1>
+                <p class="page-subtitle" data-i18n="impact-hero-subtitle">Asteroid çarpma etkilerini simüle edin ve analiz edin</p>
+                <p class="page-description" data-i18n="impact-hero-description">
                     Asteroid parametrelerini ayarlayın, çarpma noktasını seçin ve detaylı etki analizi yapın. 
                     Enerji hesaplamaları, krater boyutları, şok dalgası etkileri ve PDF rapor indirme özellikleri.
                 </p>
@@ -245,6 +245,8 @@
         </div>
     </section>
 
+    <script src="translations.js"></script>
+    <script src="language.js"></script>
     <script>
         // Initialize AOS
         AOS.init({

@@ -1,0 +1,202 @@
+window.SITE_TRANSLATIONS = {
+  common: {
+    tr: {
+      'nav-home': 'Ana Sayfa',
+      'nav-detect': 'Blink Analiz',
+      'nav-impact': 'Etki Simülasyonu',
+      'nav-about': 'Hakkında',
+      'nav-legal': 'Yasal',
+      'common-view-gif': "GIF'i Görüntüle"
+    },
+    en: {
+      'nav-home': 'Home',
+      'nav-detect': 'Blink Analysis',
+      'nav-impact': 'Impact Simulation',
+      'nav-about': 'About',
+      'nav-legal': 'Legal',
+      'common-view-gif': 'View GIF'
+    }
+  },
+  impact: {
+    tr: {
+      'impact-page-title': 'Etki Simülasyonu | AstroVia - Asteroid Çarpma Analizi',
+      'impact-hero-badge': 'Herkes için anlaşılır risk görselleştirme — bilimden karara köprü',
+      'impact-hero-title': 'Etki Simülasyonu',
+      'impact-hero-subtitle': 'Asteroid çarpma etkilerini simüle edin ve analiz edin',
+      'impact-hero-description': 'Asteroid parametrelerini ayarlayın, çarpma noktasını seçin ve detaylı etki analizi yapın. Enerji hesaplamaları, krater boyutları, şok dalgası etkileri ve PDF rapor indirme özellikleri.'
+    },
+    en: {
+      'impact-page-title': 'Impact Simulation | AstroVia - Asteroid Impact Analysis',
+      'impact-hero-badge': 'Risk visualization anyone can understand — bridging science and decisions',
+      'impact-hero-title': 'Impact Simulation',
+      'impact-hero-subtitle': 'Simulate and analyze asteroid impact effects',
+      'impact-hero-description': 'Adjust asteroid parameters, choose the impact point, and run detailed impact analysis. Includes energy calculations, crater sizing, shock-wave effects, and PDF report downloads.'
+    }
+  },
+  about: {
+    tr: {
+      'about-page-title': 'Hakkında | AstroVia - Astrovia Ekibi ve Proje Detayları',
+      'about-hero-badge': 'Astrovia Ekibi - NASA Space Apps Challenge 2025',
+      'about-hero-title': 'Hakkımızda',
+      'about-hero-subtitle': 'AstroVia projesini hayata geçiren ekip ve vizyonumuz',
+      'about-hero-description': 'NASA Space Apps Challenge 2025 kapsamında geliştirilen AstroVia projesi, asteroid keşfi ve çarpma etkisi simülasyonu alanında yenilikçi çözümler sunuyor.'
+    },
+    en: {
+      'about-page-title': 'About | AstroVia - Team And Project Details',
+      'about-hero-badge': 'AstroVia Team - NASA Space Apps Challenge 2025',
+      'about-hero-title': 'About Us',
+      'about-hero-subtitle': 'Meet the team and vision behind the AstroVia project',
+      'about-hero-description': 'Developed for the 2025 NASA Space Apps Challenge, AstroVia delivers innovative solutions for asteroid discovery and impact simulation.'
+    }
+  },
+  index: {
+    tr: {
+      'index-page-title': 'AstroGuard | Planetary Defense & Impact Assessment System',
+      'hero-title': 'AstroVia',
+      'hero-subtitle': 'Gelişmiş Asteroid Savunma ve Çarpma Simülasyon Sistemi',
+      'hero-description': 'NASA ve USGS verilerini kullanarak asteroid tehditlerini analiz edin ve çarpma etkilerini simüle edin. Blink analizi ile asteroid keşfi yapın, gerçek zamanlı etki simülasyonları çalıştırın.',
+      'btn-blink': 'Blink Analiz',
+      'btn-impact': 'Etki Simülasyonu',
+      'video-description': '30 saniye tanıtım videosu - AstroVia\'nın gücünü keşfedin',
+      'slides-title': 'Detaylı Sunum Slaytları',
+      'partners-title': 'Veri Kaynaklarımız',
+      'defense-title': '🛡️ Gezegen Savunma Stratejileri',
+      'defense-subtitle': 'Asteroid tehdidine karşı geliştirilmiş savunma yöntemleri',
+      'defense-intro': 'Nasıl Korunabiliriz?',
+      'defense-text': 'NASA, ESA ve diğer uzay ajansları asteroid tehdidine karşı çeşitli savunma stratejileri geliştiriyor. 2022\'de NASA\'nın DART misyonu, bir asteroidi yörüngesinden saptırmayı başarıyla test etti.',
+      'education-title': '📚 Asteroid Bilimi',
+      'education-subtitle': 'Asteroidler hakkında bilinmesi gerekenler'
+    },
+    en: {
+      'index-page-title': 'AstroGuard | Planetary Defense & Impact Assessment System',
+      'hero-title': 'AstroVia',
+      'hero-subtitle': 'Advanced Asteroid Defense and Impact Simulation System',
+      'hero-description': 'Analyze asteroid threats and simulate impact effects using NASA and USGS data. Perform asteroid discovery through blink analysis and run real-time impact simulations.',
+      'btn-blink': 'Blink Analysis',
+      'btn-impact': 'Impact Simulation',
+      'video-description': '30-second introduction video - Discover the power of AstroVia',
+      'slides-title': 'Detailed Presentation Slides',
+      'partners-title': 'Our Data Sources',
+      'defense-title': '🛡️ Planetary Defense Strategies',
+      'defense-subtitle': 'Defense methods developed against asteroid threats',
+      'defense-intro': 'How Can We Protect Ourselves?',
+      'defense-text': 'NASA, ESA and other space agencies develop multiple strategies against asteroid threats. In 2022, NASA\'s DART mission successfully tested deflecting an asteroid from its orbit.',
+      'education-title': '📚 Asteroid Science',
+      'education-subtitle': 'What you need to know about asteroids'
+    }
+  },
+  detect: {
+    tr: {
+      'detect-page-title': 'Blink Analiz | AstroVia - AI Destekli Asteroid Keşfi',
+      'detect-hero-badge': 'Blink + AI ile aday taraması: dakikalar yerine saniyeler',
+      'detect-hero-title': 'Blink Analiz Sistemi',
+      'detect-hero-subtitle': 'FITS görüntülerinizi yükleyin, AI destekli asteroid keşfi yapın',
+      'detect-hero-description': 'Hizalama → fark alma → aday/tracklet adımlarını otomatik olarak gerçekleştirin. Blink.gif önizlemesi ve candidates.csv indirme özellikleri ile tam analiz raporu alın.',
+      'detect-upload-heading': 'FITS Görüntü Yükleme',
+      'detect-upload-subheading': 'Astronomik görüntülerinizi yükleyerek asteroid analizi başlatın',
+      'detect-upload-area-title': 'FITS Dosyalarınızı Sürükleyin',
+      'detect-upload-or': 'veya',
+      'detect-upload-select': 'Dosya Seç',
+      'detect-demo-title': 'Demo için Örnek Veri',
+      'detect-demo-button': 'Örnek FITS Yükle',
+      'detect-demo-description': 'Test için hazırlanmış örnek asteroid verilerini kullanın',
+      'detect-progress-heading': 'Analiz İlerlemesi',
+      'detect-step1-title': 'Hizalama',
+      'detect-step1-desc': 'Görüntüleri hizalama işlemi',
+      'detect-step2-title': 'Fark Alma',
+      'detect-step2-desc': 'Görüntüler arası fark hesaplama',
+      'detect-step3-title': 'Aday/Tracklet',
+      'detect-step3-desc': 'Asteroid adaylarını tespit etme',
+      'detect-progress-text-initial': 'Analiz başlatılıyor...',
+      'detect-progress-step1-text': 'Görüntüler hizalanıyor...',
+      'detect-progress-step2-text': 'Fark hesaplanıyor...',
+      'detect-progress-step3-text': 'Adaylar tespit ediliyor...',
+      'detect-results-heading': 'Analiz Sonuçları',
+      'detect-results-blink-heading': 'Blink GIF Önizleme',
+      'detect-results-placeholder': 'Blink animasyonu oluşturuluyor...',
+      'detect-results-ready-text': 'Blink animasyonu hazır!',
+      'detect-results-candidates-heading': 'Aday Listesi',
+      'detect-results-candidates-count-label': 'Aday Tespit Edildi',
+      'detect-results-download': 'Candidates.csv İndir',
+      'detect-results-details-heading': 'Aday Detayları',
+      'detect-candidate-title': 'Aday {id}',
+      'detect-candidate-ra-label': 'RA:',
+      'detect-candidate-dec-label': 'Dec:',
+      'detect-candidate-mini-gif': 'Mini GIF',
+      'detect-candidate-details': 'Detaylar',
+      'detect-technical-heading': 'Teknik Detaylar',
+      'detect-technical-alignment-title': 'Hizalama Algoritması',
+      'detect-technical-alignment-desc': 'Gelişmiş görüntü hizalama teknikleri ile yıldız pozisyonlarını eşleştirme',
+      'detect-technical-diff-title': 'Fark Alma',
+      'detect-technical-diff-desc': 'Subtraction imaging ile asteroid hareketlerini tespit etme',
+      'detect-technical-ai-title': 'AI Tespit',
+      'detect-technical-ai-desc': 'Makine öğrenmesi algoritmaları ile asteroid adaylarını filtreleme',
+      'detect-technical-snr-title': 'SNR Analizi',
+      'detect-technical-snr-desc': 'Signal-to-Noise Ratio hesaplaması ile güvenilir tespit'
+    },
+    en: {
+      'detect-page-title': 'Blink Analysis | AstroVia - AI-Powered Asteroid Discovery',
+      'detect-hero-badge': 'Blink + AI candidate scanning: seconds instead of minutes',
+      'detect-hero-title': 'Blink Analysis System',
+      'detect-hero-subtitle': 'Upload FITS images, perform AI-powered asteroid discovery',
+      'detect-hero-description': 'Automatically perform alignment → difference → candidate/tracklet steps. Get a complete analysis report with blink.gif preview and candidates.csv download features.',
+      'detect-upload-heading': 'FITS Image Upload',
+      'detect-upload-subheading': 'Upload your astronomical images to start the asteroid analysis',
+      'detect-upload-area-title': 'Drag in Your FITS Files',
+      'detect-upload-or': 'or',
+      'detect-upload-select': 'Choose File',
+      'detect-demo-title': 'Sample Data for Demo',
+      'detect-demo-button': 'Load Sample FITS',
+      'detect-demo-description': 'Use curated sample asteroid data for testing',
+      'detect-progress-heading': 'Analysis Progress',
+      'detect-step1-title': 'Alignment',
+      'detect-step1-desc': 'Aligning the images',
+      'detect-step2-title': 'Differencing',
+      'detect-step2-desc': 'Calculating differences between images',
+      'detect-step3-title': 'Candidate/Tracklet',
+      'detect-step3-desc': 'Detecting asteroid candidates',
+      'detect-progress-text-initial': 'Analysis starting...',
+      'detect-progress-step1-text': 'Aligning images...',
+      'detect-progress-step2-text': 'Computing the difference...',
+      'detect-progress-step3-text': 'Identifying candidates...',
+      'detect-results-heading': 'Analysis Results',
+      'detect-results-blink-heading': 'Blink GIF Preview',
+      'detect-results-placeholder': 'Generating blink animation...',
+      'detect-results-ready-text': 'Blink animation is ready!',
+      'detect-results-candidates-heading': 'Candidate List',
+      'detect-results-candidates-count-label': 'Candidates Detected',
+      'detect-results-download': 'Download candidates.csv',
+      'detect-results-details-heading': 'Candidate Details',
+      'detect-candidate-title': 'Candidate {id}',
+      'detect-candidate-ra-label': 'RA:',
+      'detect-candidate-dec-label': 'Dec:',
+      'detect-candidate-mini-gif': 'Mini GIF',
+      'detect-candidate-details': 'Details',
+      'detect-technical-heading': 'Technical Details',
+      'detect-technical-alignment-title': 'Alignment Algorithm',
+      'detect-technical-alignment-desc': 'Match star positions using advanced image alignment techniques',
+      'detect-technical-diff-title': 'Differencing',
+      'detect-technical-diff-desc': 'Detect asteroid motion with subtraction imaging',
+      'detect-technical-ai-title': 'AI Detection',
+      'detect-technical-ai-desc': 'Filter asteroid candidates with machine learning algorithms',
+      'detect-technical-snr-title': 'SNR Analysis',
+      'detect-technical-snr-desc': 'Ensure reliable detection through Signal-to-Noise Ratio calculations'
+    }
+  },
+  legal: {
+    tr: {
+      'legal-page-title': 'Yasal | AstroVia - Sorumluluk Reddi ve Lisans Bilgileri',
+      'legal-hero-badge': 'Yasal Bilgiler',
+      'legal-hero-title': 'Sorumluluk Reddi ve Lisanslar',
+      'legal-hero-subtitle': 'AstroVia projesinin yasal durumu ve kullanım koşulları',
+      'legal-hero-description': 'Bu sayfa AstroVia projesinin yasal durumu, veri kaynakları, lisans bilgileri ve kullanım koşulları hakkında detaylı bilgiler içerir.'
+    },
+    en: {
+      'legal-page-title': 'Legal | AstroVia - Disclaimers And Licensing',
+      'legal-hero-badge': 'Legal Information',
+      'legal-hero-title': 'Disclaimer & Licensing',
+      'legal-hero-subtitle': 'Legal status and usage terms for the AstroVia project',
+      'legal-hero-description': 'This page covers AstroVia’s legal status, data sources, licensing details, and conditions of use.'
+    }
+  }
+};

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-page="legal">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body>
+<body data-title-key="legal-page-title">
     <div class="stars"></div>
     <div class="cosmic-bg"></div>
     
@@ -21,11 +21,11 @@
                 <span class="logo-sparkle">✨</span>
             </div>
             <div class="nav-links">
-                <a href="index.html" class="nav-link" data-translate="nav-home">Ana Sayfa</a>
-                <a href="detect.html" class="nav-link" data-translate="nav-detect">Blink Analiz</a>
-                <a href="impact.html" class="nav-link" data-translate="nav-impact">Etki Simülasyonu</a>
-                <a href="about.html" class="nav-link" data-translate="nav-about">Hakkında</a>
-                <a href="legal.html" class="nav-link active" data-translate="nav-legal">Yasal</a>
+                <a href="index.html" class="nav-link" data-i18n="nav-home">Ana Sayfa</a>
+                <a href="detect.html" class="nav-link" data-i18n="nav-detect">Blink Analiz</a>
+                <a href="impact.html" class="nav-link" data-i18n="nav-impact">Etki Simülasyonu</a>
+                <a href="about.html" class="nav-link" data-i18n="nav-about">Hakkında</a>
+                <a href="legal.html" class="nav-link active" data-i18n="nav-legal">Yasal</a>
                 <div class="language-selector">
                     <button class="lang-btn active" data-lang="tr">TR</button>
                     <button class="lang-btn" data-lang="en">EN</button>
@@ -38,10 +38,10 @@
     <section class="page-hero">
         <div class="container">
             <div class="page-hero-content" data-aos="fade-up">
-                <div class="page-badge">Yasal Bilgiler</div>
-                <h1 class="page-title">Sorumluluk Reddi ve Lisanslar</h1>
-                <p class="page-subtitle">AstroVia projesinin yasal durumu ve kullanım koşulları</p>
-                <p class="page-description">
+                <div class="page-badge" data-i18n="legal-hero-badge">Yasal Bilgiler</div>
+                <h1 class="page-title" data-i18n="legal-hero-title">Sorumluluk Reddi ve Lisanslar</h1>
+                <p class="page-subtitle" data-i18n="legal-hero-subtitle">AstroVia projesinin yasal durumu ve kullanım koşulları</p>
+                <p class="page-description" data-i18n="legal-hero-description">
                     Bu sayfa AstroVia projesinin yasal durumu, veri kaynakları, lisans bilgileri 
                     ve kullanım koşulları hakkında detaylı bilgiler içerir.
                 </p>
@@ -400,6 +400,8 @@
         </div>
     </section>
 
+    <script src="translations.js"></script>
+    <script src="language.js"></script>
     <script>
         // Initialize AOS
         AOS.init({
