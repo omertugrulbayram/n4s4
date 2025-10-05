@@ -1,12 +1,12 @@
 /* ================================================ */
 /*    Bu CSS'i 6 kahve içerek yazdım              */
 /*    "Asteroid çarpmasın diye stil yazıyoruz"    */
-/*    NASA Space Apps Challenge 2024               */
+/*    NASA Space Apps Challenge 2025               */
 /* ================================================ */
 
 /* Galaxy Theme - Deep Space Inspired Design */
 /* Bu tema çok güzel oldu, uzay teması her zaman etkileyici */
-/* NASA Space Apps Challenge 2024 için geliştirilmiştir */
+/* NASA Space Apps Challenge 2025 için geliştirilmiştir */
 
 /* ================================================ */
 /*    GEREKSIZ CSS BLOKLARI BÖLÜMÜ                */
@@ -16,6 +16,37 @@
 /* Bu CSS bloğu hiçbir işe yaramıyor ama olsun */
 .asteroid-mood-indicator {
   /* bu class hiçbir yerde kullanılmıyor ama var */
+  /* Genel düzenleme (mobil için) */
+@media (max-width: 768px) {
+  .mentors-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mentor-card {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mentor-avatar {
+    margin: 0 auto 10px;
+  }
+
+  .mentor-info h3 {
+    font-size: 18px;
+  }
+
+  .mentor-contribution {
+    font-size: 14px;
+  }
+
+  /* Container’lar fazla genişliyse: */
+  .container {
+    padding: 0 15px;
+  }
+}
+
   display: none;
   position: absolute;
   top: -1000px;
@@ -4683,4 +4714,5 @@ section {
    - Custom properties (CSS variables) kullanılarak tema yönetimi sağlanmıştır
    - Bu CSS'i 6 kahve içerek yazdım, hata varsa affola :D
    - TODO: belki sonra daha güzel animasyonlar eklerim (ama etmeyeceğim)
+
 */
